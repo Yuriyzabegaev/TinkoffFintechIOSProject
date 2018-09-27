@@ -21,6 +21,7 @@ class ProfileViewController: UIViewController {
     
     var logger: Logger = Logger(name: String(describing: type(of: self)))
     
+    
     // MARK: - Initialization
     
     required init?(coder aDecoder: NSCoder) {
@@ -32,6 +33,7 @@ class ProfileViewController: UIViewController {
         */
     }
     
+    
     // MARK: - Actions
     
     @IBAction func choosePhotoButtonTapped(_ sender: UIButton) {
@@ -40,23 +42,38 @@ class ProfileViewController: UIViewController {
         
         let chooseAlert = UIAlertController(
             title: "Edit profile picture",
-            message: "You may choose your profile picture from photo gallery or make photo right now",
+            message: "You may choose your profile picture from photo library or make photo right now",
             preferredStyle: .actionSheet)
         
         chooseAlert.addAction(
             UIAlertAction(
-                title: NSLocalizedString("Open photo gallery", comment: ""),
+                title: NSLocalizedString("Open photo library", comment: ""),
                 style: .default,
-                handler: { _ in
-                    NSLog("The \"OK\" alert occured.")
+                handler: { [weak self] _ in
+                    guard let strongSelf = self else { return }
+                    if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+                        let imagePicker = UIImagePickerController()
+                        imagePicker.delegate = strongSelf
+                        imagePicker.sourceType = .photoLibrary;
+                        imagePicker.allowsEditing = true
+                        strongSelf.present(imagePicker, animated: true, completion: nil)
+                    }
             }))
+        
         chooseAlert.addAction(
             UIAlertAction(
                 title: NSLocalizedString("Make new photo", comment: ""),
-                style: .default,
-                handler: { _ in
-                    NSLog("The \"OK\" alert occured.")
-            }))
+                style: .default) { [weak self] _ in
+                    guard let strongSelf = self else { return }
+                    if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                        let imagePicker = UIImagePickerController()
+                        imagePicker.delegate = strongSelf
+                        imagePicker.sourceType = .camera;
+                        imagePicker.allowsEditing = false
+                        strongSelf.present(imagePicker, animated: true, completion: nil)
+                    }
+        })
+        
         chooseAlert.addAction(
             UIAlertAction(
                 title: "Cancel",
@@ -71,28 +88,8 @@ class ProfileViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         logger.logCurrentMethod(named: #function,
                                 withMessage: "self.editButton.frame == \(editButton.frame)")
-        
-        // setting UI
-        let cornerRadius = choosePhotoButton.frame.size.height / 2 - 8
-        
-        choosePhotoButton.layer.masksToBounds = true
-        choosePhotoButton.layer.cornerRadius = cornerRadius
-        choosePhotoButton.imageView?.contentMode = .scaleAspectFit
-        choosePhotoButton.imageEdgeInsets = UIEdgeInsets(
-            top: cornerRadius/2.7,
-            left: cornerRadius/2.7,
-            bottom: cornerRadius/2.7,
-            right: cornerRadius/2.7)
-        
-        editButton.layer.cornerRadius = cornerRadius / 3
-        editButton.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        editButton.layer.borderWidth = 1.0
-        
-        profilePhotoImageView.layer.masksToBounds = true
-        profilePhotoImageView.layer.cornerRadius = cornerRadius
         
     }
     
@@ -104,6 +101,37 @@ class ProfileViewController: UIViewController {
         /*
             during the viewDidLoad method the frames of the views are not set correctly according to the constraints, but in viewDidAppear they are.
          */
+        
+        // setting UI
+        let cornerRadius = choosePhotoButton.frame.size.height / 2
+        
+        choosePhotoButton.layer.masksToBounds = true
+        choosePhotoButton.layer.cornerRadius = cornerRadius
+        choosePhotoButton.imageView?.contentMode = .scaleAspectFit
+        choosePhotoButton.imageEdgeInsets = UIEdgeInsets(
+            top: cornerRadius/2.7,
+            left: cornerRadius/2.7,
+            bottom: cornerRadius/2.7,
+            right: cornerRadius/2.7)
+        
+        editButton.layer.cornerRadius = cornerRadius / 5
+        editButton.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        editButton.layer.borderWidth = 1.0
+        
+        profilePhotoImageView.layer.masksToBounds = true
+        profilePhotoImageView.layer.cornerRadius = cornerRadius
+    }
+    
+}
+
+
+extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[.originalImage] as? UIImage {
+            profilePhotoImageView.image = image
+            dismiss(animated:true, completion: nil)
+        }
     }
     
 }
