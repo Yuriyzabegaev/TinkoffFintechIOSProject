@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -65,12 +64,12 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="t1L-mt-hgC" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="DAD-CP-t8l"/>
                             <constraint firstItem="UhF-uW-5oB" firstAttribute="bottom" secondItem="IxD-0M-yzZ" secondAttribute="bottom" id="HRa-Rc-Osg"/>
-                            <constraint firstAttribute="bottom" secondItem="t1L-mt-hgC" secondAttribute="bottom" constant="16" id="O9w-WQ-Ve6"/>
-                            <constraint firstItem="t1L-mt-hgC" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="16" id="RK7-OG-WTw"/>
-                            <constraint firstAttribute="trailing" secondItem="t1L-mt-hgC" secondAttribute="trailing" constant="16" id="VYf-5J-wMO"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="t1L-mt-hgC" secondAttribute="trailing" constant="16" id="X17-m5-VBL"/>
                             <constraint firstItem="UhF-uW-5oB" firstAttribute="height" secondItem="IxD-0M-yzZ" secondAttribute="height" multiplier="0.27" id="aRV-iO-eIH"/>
-                            <constraint firstItem="t1L-mt-hgC" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="dAw-wU-4Wx"/>
+                            <constraint firstItem="t1L-mt-hgC" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="16" id="dq7-hP-gRp"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="t1L-mt-hgC" secondAttribute="bottom" constant="16" id="dtJ-Wn-3D9"/>
                             <constraint firstItem="UhF-uW-5oB" firstAttribute="trailing" secondItem="IxD-0M-yzZ" secondAttribute="trailing" id="yIV-oz-fS5"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
