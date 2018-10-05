@@ -13,12 +13,14 @@ protocol ConversationCellConfiguration: class {
     var name : String? {get set}
     var message : String? {get set}
     var date : Date? {get set}
-    var online : Bool? {get set}
-    var hasUnreadMessage : Bool? {get set}
+    var online : Bool {get set}
+    var hasUnreadMessage : Bool {get set}
 }
 
 
 class ConversationCell: UITableViewCell, ConversationCellConfiguration {
+    
+    //MARK: - properties
     
     var name: String? {
         didSet {
@@ -35,98 +37,72 @@ class ConversationCell: UITableViewCell, ConversationCellConfiguration {
                 lastMessageLabel.font = UIFont.systemFont(ofSize: UIFont.systemFontSize)
                 lastMessageLabel.text = lastMessageText
             } else {
-                lastMessageLabel.font = UIFont(name: "Courier New",
-                                               size: UIFont.systemFontSize - 0.5)
+                lastMessageLabel.font = UIFont.italicSystemFont(ofSize: UIFont.systemFontSize - 0.5)
                 lastMessageLabel.text = "No messages yet"
             }
         }
     }
     var date: Date? {
         didSet {
-            guard date != nil else {
+            guard let date = date else {
                 timestampLabel.text = nil
                 return
             }
-            if Date().timeIntervalSince(date!) < 60*60*24 {
-                timestampLabel.text = date!.timeOnlyString
+            let formatter = DateFormatter()
+            if Date().timeIntervalSince(date) < 60*60*24 {
+                formatter.dateFormat = "HH:mm"
+                timestampLabel.text = formatter.string(from: date)
             } else {
-                timestampLabel.text = date!.dateOnlyString
+                formatter.dateFormat = "dd MMM"
+                timestampLabel.text = formatter.string(from: date)
             }
         }
     }
-    var online: Bool? {
+    var online: Bool = false {
         didSet {
-            if online != nil &&
-                online! {
-                self.backgroundColor = #colorLiteral(red: 0.9725490196, green: 0.862745098, blue: 0, alpha: 1)
+            if online {
+                self.backgroundColor = #colorLiteral(red: 1, green: 0.9243035078, blue: 0.6523137865, alpha: 1)
             } else {
                 self.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
             }
         }
     }
-    var hasUnreadMessage: Bool? {
+    var hasUnreadMessage: Bool = false {
         didSet {
-            if hasUnreadMessage != nil &&
-                hasUnreadMessage! {
+            if hasUnreadMessage && message != nil {
                 lastMessageLabel.font = UIFont.boldSystemFont(ofSize: lastMessageLabel.font.pointSize)
             }
         }
     }
     
-    //MARK: - Properties
+    
+    //MARK: - Outlets
     
     @IBOutlet private var nameLabel: UILabel!
     @IBOutlet private var lastMessageLabel: UILabel!
     @IBOutlet private var timestampLabel: UILabel!
     
+    
+    //MARK: - Lifecycle
 
     override func awakeFromNib() {
         super.awakeFromNib()
         nameLabel.font = UIFont.boldSystemFont(ofSize: UIFont.systemFontSize)
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+        
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = #colorLiteral(red: 0.968627451, green: 0.968627451, blue: 0.968627451, alpha: 1)
+        selectedBackgroundView = backgroundView
+        
+        lastMessageLabel!.textColor = UIColor.darkGray
     }
 
 }
 
-
-extension Date {
-    
-    var dateOnlyString: String? {
-        let date = Date()
-        let calender = Calendar.current
-        let components = calender.dateComponents([.day, .month], from: date)
-        
-        guard let day = components.day,
-            let month = components.month else { return nil }
-        
-        return day.twoNumeralsString + "." + month.twoNumeralsString
-    }
-    
-    var timeOnlyString: String? {
-        let date = Date()
-        let calender = Calendar.current
-        let components = calender.dateComponents([.hour, .minute, .second], from: date)
-        
-        guard let hour = components.hour,
-            let minute = components.minute,
-            let second = components.second else { return nil }
-        
-        let today_string = hour.twoNumeralsString + ":" + minute.twoNumeralsString + ":" + second.twoNumeralsString
-        
-        return today_string
-    }
-    
-}
 
 extension Int {
     
-    var twoNumeralsString : String {
-        return self > 9 ? String(self) : "0" + String(self)
+    var arc4random: Int {
+        return Int(arc4random_uniform(UInt32(self + 1)))
     }
     
 }

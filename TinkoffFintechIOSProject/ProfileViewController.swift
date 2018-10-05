@@ -17,18 +17,29 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var choosePhotoButton: UIButton!
     
     
-    // MARK: - Properties
+    // MARK: - Configuration
     
-    
-    // MARK: - Initialization
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    func configureFrame(with frame: CGRect) {
+        self.view.frame = frame
         
-//        print(editButton.frame)
-        /*
-         editButton == nil failure, as the outlets are not set up in this method
-        */
+        // setting UI
+        let cornerRadius = choosePhotoButton.frame.size.height / 2
+        
+        choosePhotoButton.layer.masksToBounds = true
+        choosePhotoButton.layer.cornerRadius = cornerRadius
+        choosePhotoButton.imageView?.contentMode = .scaleAspectFit
+        choosePhotoButton.imageEdgeInsets = UIEdgeInsets(
+            top: cornerRadius/2.7,
+            left: cornerRadius/2.7,
+            bottom: cornerRadius/2.7,
+            right: cornerRadius/2.7)
+        
+        editButton.layer.cornerRadius = cornerRadius / 5
+        editButton.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        editButton.layer.borderWidth = 1.0
+        
+        profilePhotoImageView.layer.masksToBounds = true
+        profilePhotoImageView.layer.cornerRadius = cornerRadius
     }
     
     
@@ -80,28 +91,18 @@ class ProfileViewController: UIViewController {
     
     
     // MARK: - LifeCycle
-
-        override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        // setting UI
-        let cornerRadius = choosePhotoButton.frame.size.height / 2
-        
-        choosePhotoButton.layer.masksToBounds = true
-        choosePhotoButton.layer.cornerRadius = cornerRadius
-        choosePhotoButton.imageView?.contentMode = .scaleAspectFit
-        choosePhotoButton.imageEdgeInsets = UIEdgeInsets(
-            top: cornerRadius/2.7,
-            left: cornerRadius/2.7,
-            bottom: cornerRadius/2.7,
-            right: cornerRadius/2.7)
-        
-        editButton.layer.cornerRadius = cornerRadius / 5
-        editButton.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        editButton.layer.borderWidth = 1.0
-        
-        profilePhotoImageView.layer.masksToBounds = true
-        profilePhotoImageView.layer.cornerRadius = cornerRadius
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done",
+                                                                 style: .done,
+                                                                 target: self,
+                                                                 action: #selector(self.dismissScreen))
+    }
+    
+    @objc
+    private func dismissScreen() {
+        dismiss(animated: true, completion: nil)
     }
     
 }

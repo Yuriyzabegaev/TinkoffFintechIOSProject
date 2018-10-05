@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B47055C21679D8A002A10C7 /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B47055B21679D8A002A10C7 /* ConversationViewController.swift */; };
 		0B53DCFD21654454003585F0 /* ConversationsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B53DCFC21654454003585F0 /* ConversationsListViewController.swift */; };
 		0B53DCFF2165532E003585F0 /* ConversationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B53DCFE2165532E003585F0 /* ConversationCell.swift */; };
+		0B79E39E2167BE9600A7BFD8 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B79E39D2167BE9600A7BFD8 /* MessageCell.swift */; };
 		0BDA3C312154401D0065E627 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDA3C302154401D0065E627 /* AppDelegate.swift */; };
 		0BDA3C332154401D0065E627 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDA3C322154401D0065E627 /* ProfileViewController.swift */; };
 		0BDA3C362154401D0065E627 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BDA3C342154401D0065E627 /* Main.storyboard */; };
@@ -18,8 +20,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0B47055B21679D8A002A10C7 /* ConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
 		0B53DCFC21654454003585F0 /* ConversationsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsListViewController.swift; sourceTree = "<group>"; };
 		0B53DCFE2165532E003585F0 /* ConversationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationCell.swift; sourceTree = "<group>"; };
+		0B79E39D2167BE9600A7BFD8 /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		0BDA3C2D2154401D0065E627 /* TinkoffFintechIOSProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinkoffFintechIOSProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BDA3C302154401D0065E627 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0BDA3C322154401D0065E627 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -69,6 +73,8 @@
 				0BDA3C3C215440200065E627 /* Info.plist */,
 				0BDA3C422154441D0065E627 /* Logger.swift */,
 				0B53DCFE2165532E003585F0 /* ConversationCell.swift */,
+				0B79E39D2167BE9600A7BFD8 /* MessageCell.swift */,
+				0B47055B21679D8A002A10C7 /* ConversationViewController.swift */,
 			);
 			path = TinkoffFintechIOSProject;
 			sourceTree = "<group>";
@@ -146,7 +152,9 @@
 			files = (
 				0BDA3C332154401D0065E627 /* ProfileViewController.swift in Sources */,
 				0B53DCFD21654454003585F0 /* ConversationsListViewController.swift in Sources */,
+				0B47055C21679D8A002A10C7 /* ConversationViewController.swift in Sources */,
 				0B53DCFF2165532E003585F0 /* ConversationCell.swift in Sources */,
+				0B79E39E2167BE9600A7BFD8 /* MessageCell.swift in Sources */,
 				0BDA3C432154441D0065E627 /* Logger.swift in Sources */,
 				0BDA3C312154401D0065E627 /* AppDelegate.swift in Sources */,
 			);
