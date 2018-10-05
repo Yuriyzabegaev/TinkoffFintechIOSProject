@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B53DCFD21654454003585F0 /* ConversationsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B53DCFC21654454003585F0 /* ConversationsListViewController.swift */; };
+		0B53DCFF2165532E003585F0 /* ConversationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B53DCFE2165532E003585F0 /* ConversationCell.swift */; };
 		0BDA3C312154401D0065E627 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDA3C302154401D0065E627 /* AppDelegate.swift */; };
 		0BDA3C332154401D0065E627 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDA3C322154401D0065E627 /* ProfileViewController.swift */; };
 		0BDA3C362154401D0065E627 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BDA3C342154401D0065E627 /* Main.storyboard */; };
@@ -16,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0B53DCFC21654454003585F0 /* ConversationsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsListViewController.swift; sourceTree = "<group>"; };
+		0B53DCFE2165532E003585F0 /* ConversationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationCell.swift; sourceTree = "<group>"; };
 		0BDA3C2D2154401D0065E627 /* TinkoffFintechIOSProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinkoffFintechIOSProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BDA3C302154401D0065E627 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0BDA3C322154401D0065E627 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -58,11 +62,13 @@
 			children = (
 				0BDA3C302154401D0065E627 /* AppDelegate.swift */,
 				0BDA3C322154401D0065E627 /* ProfileViewController.swift */,
+				0B53DCFC21654454003585F0 /* ConversationsListViewController.swift */,
 				0BDA3C342154401D0065E627 /* Main.storyboard */,
 				0BDA3C37215440200065E627 /* Assets.xcassets */,
 				0BDA3C39215440200065E627 /* LaunchScreen.storyboard */,
 				0BDA3C3C215440200065E627 /* Info.plist */,
 				0BDA3C422154441D0065E627 /* Logger.swift */,
+				0B53DCFE2165532E003585F0 /* ConversationCell.swift */,
 			);
 			path = TinkoffFintechIOSProject;
 			sourceTree = "<group>";
@@ -139,6 +145,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				0BDA3C332154401D0065E627 /* ProfileViewController.swift in Sources */,
+				0B53DCFD21654454003585F0 /* ConversationsListViewController.swift in Sources */,
+				0B53DCFF2165532E003585F0 /* ConversationCell.swift in Sources */,
 				0BDA3C432154441D0065E627 /* Logger.swift in Sources */,
 				0BDA3C312154401D0065E627 /* AppDelegate.swift in Sources */,
 			);

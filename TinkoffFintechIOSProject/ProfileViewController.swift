@@ -19,8 +19,6 @@ class ProfileViewController: UIViewController {
     
     // MARK: - Properties
     
-    var logger: Logger = Logger(name: String(describing: type(of: self)))
-    
     
     // MARK: - Initialization
     
@@ -37,9 +35,6 @@ class ProfileViewController: UIViewController {
     // MARK: - Actions
     
     @IBAction func choosePhotoButtonTapped(_ sender: UIButton) {
-        logger.logCurrentMethod(named: #function,
-                                withMessage: "Выбери изображение профиля")
-        
         let chooseAlert = UIAlertController(
             title: "Edit profile picture",
             message: "You may choose your profile picture from photo library or make photo right now",
@@ -86,21 +81,8 @@ class ProfileViewController: UIViewController {
     
     // MARK: - LifeCycle
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        logger.logCurrentMethod(named: #function,
-                                withMessage: "self.editButton.frame == \(editButton.frame)")
-        
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
+        override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        logger.logCurrentMethod(named: #function,
-                                withMessage: "self.editButton.frame == \(editButton.frame)")
-        /*
-            during the viewDidLoad method the frames of the views are not set correctly according to the constraints, but in viewDidAppear they are.
-         */
         
         // setting UI
         let cornerRadius = choosePhotoButton.frame.size.height / 2
