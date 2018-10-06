@@ -139,10 +139,10 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v1O-Rd-Bk5" userLabel="Container">
-                                            <rect key="frame" x="96" y="2" width="271" height="65.5"/>
+                                            <rect key="frame" x="107.5" y="2" width="259.5" height="65.5"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Labe wqiej oiwqej oiqwje oiqjeo iqwj eqwoij qoiweqjl" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uUg-Oh-4kX">
-                                                    <rect key="frame" x="8" y="16" width="255" height="33.5"/>
+                                                    <rect key="frame" x="8" y="16" width="243.5" height="33.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -161,7 +161,7 @@
                                         <constraint firstAttribute="bottom" secondItem="v1O-Rd-Bk5" secondAttribute="bottom" constant="2" id="9r2-iP-Crn"/>
                                         <constraint firstItem="v1O-Rd-Bk5" firstAttribute="top" secondItem="6tE-8w-uSO" secondAttribute="top" constant="2" id="EpB-Cc-73Z"/>
                                         <constraint firstAttribute="trailing" secondItem="v1O-Rd-Bk5" secondAttribute="trailing" constant="8" id="tKF-SV-Op2"/>
-                                        <constraint firstItem="v1O-Rd-Bk5" firstAttribute="width" secondItem="6tE-8w-uSO" secondAttribute="width" multiplier="0.75" constant="-10" id="ues-so-BIO"/>
+                                        <constraint firstItem="v1O-Rd-Bk5" firstAttribute="width" relation="lessThanOrEqual" secondItem="6tE-8w-uSO" secondAttribute="width" multiplier="0.75" constant="-10" id="ues-so-BIO"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -177,10 +177,10 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JFr-Fz-ARn" userLabel="Container">
-                                            <rect key="frame" x="10" y="2" width="271.5" height="65.5"/>
+                                            <rect key="frame" x="10" y="2" width="58.5" height="65.5"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Labe wqiej oiwqej oiqwje oiqjeo iqwj eqwoij qoiweqjl" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0cL-j5-FbT">
-                                                    <rect key="frame" x="8" y="16" width="255.5" height="33.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Labe " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0cL-j5-FbT">
+                                                    <rect key="frame" x="8" y="16" width="42.5" height="33.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -199,7 +199,7 @@
                                         <constraint firstAttribute="bottom" secondItem="JFr-Fz-ARn" secondAttribute="bottom" constant="2" id="EiX-Rr-RmR"/>
                                         <constraint firstItem="JFr-Fz-ARn" firstAttribute="top" secondItem="9uk-Zh-Q0k" secondAttribute="top" constant="2" id="TkJ-ec-8dc"/>
                                         <constraint firstItem="JFr-Fz-ARn" firstAttribute="leading" secondItem="9uk-Zh-Q0k" secondAttribute="leading" constant="10" id="mcq-eR-XNB"/>
-                                        <constraint firstItem="JFr-Fz-ARn" firstAttribute="width" secondItem="9uk-Zh-Q0k" secondAttribute="width" multiplier="0.75" constant="-10" id="y1L-Oh-GYW"/>
+                                        <constraint firstItem="JFr-Fz-ARn" firstAttribute="width" relation="lessThanOrEqual" secondItem="9uk-Zh-Q0k" secondAttribute="width" multiplier="0.75" constant="-10" id="y1L-Oh-GYW"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>

@@ -59,7 +59,7 @@ class ConversationViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let identifier: String
-        if 1.arc4random == 0 {
+        if indexPath.item % 3 == 0 {
             identifier = CellIdentifiers.outgoing
         } else {
             identifier = CellIdentifiers.incoming
