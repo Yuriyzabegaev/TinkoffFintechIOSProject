@@ -82,14 +82,9 @@ class ConversationsListViewController: UITableViewController {
         
         switch segue.identifier {
         case SegueIdentifier.toConversation:
-            if let cell = sender as? ConversationCell,
+            if let cell = sender as? ConversationCellConfiguration,
                 let conversationViewController = segue.destination as? ConversationViewController {
                 conversationViewController.configureData(with: cell)
-            }
-        case SegueIdentifier.toProfile:
-            if let navigationController = segue.destination as? UINavigationController,
-                let profileViewController = navigationController.topViewController as? ProfileViewController {
-                profileViewController.configureFrame(with: self.view.frame)
             }
         default:
             return

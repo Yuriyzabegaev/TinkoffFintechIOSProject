@@ -139,10 +139,10 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v1O-Rd-Bk5" userLabel="Container">
-                                            <rect key="frame" x="107.5" y="2" width="259.5" height="65.5"/>
+                                            <rect key="frame" x="99.5" y="2" width="267.5" height="65.5"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Labe wqiej oiwqej oiqwje oiqjeo iqwj eqwoij qoiweqjl" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uUg-Oh-4kX">
-                                                    <rect key="frame" x="8" y="16" width="243.5" height="33.5"/>
+                                                    <rect key="frame" x="12" y="8" width="243.5" height="49.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -150,10 +150,10 @@
                                             </subviews>
                                             <color key="backgroundColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="uUg-Oh-4kX" secondAttribute="trailing" constant="8" id="FAj-bp-2Gr"/>
-                                                <constraint firstAttribute="bottom" secondItem="uUg-Oh-4kX" secondAttribute="bottom" constant="16" id="FSF-ep-qGp"/>
-                                                <constraint firstItem="uUg-Oh-4kX" firstAttribute="top" secondItem="v1O-Rd-Bk5" secondAttribute="top" constant="16" id="GeB-r2-S1F"/>
-                                                <constraint firstItem="uUg-Oh-4kX" firstAttribute="leading" secondItem="v1O-Rd-Bk5" secondAttribute="leading" constant="8" id="USs-Xl-aVj"/>
+                                                <constraint firstAttribute="trailing" secondItem="uUg-Oh-4kX" secondAttribute="trailing" constant="12" id="FAj-bp-2Gr"/>
+                                                <constraint firstAttribute="bottom" secondItem="uUg-Oh-4kX" secondAttribute="bottom" constant="8" id="FSF-ep-qGp"/>
+                                                <constraint firstItem="uUg-Oh-4kX" firstAttribute="top" secondItem="v1O-Rd-Bk5" secondAttribute="top" constant="8" id="GeB-r2-S1F"/>
+                                                <constraint firstItem="uUg-Oh-4kX" firstAttribute="leading" secondItem="v1O-Rd-Bk5" secondAttribute="leading" constant="12" id="USs-Xl-aVj"/>
                                             </constraints>
                                         </view>
                                     </subviews>
@@ -177,10 +177,10 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JFr-Fz-ARn" userLabel="Container">
-                                            <rect key="frame" x="10" y="2" width="58.5" height="65.5"/>
+                                            <rect key="frame" x="10" y="2" width="66.5" height="65.5"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Labe " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0cL-j5-FbT">
-                                                    <rect key="frame" x="8" y="16" width="42.5" height="33.5"/>
+                                                    <rect key="frame" x="12" y="8" width="42.5" height="49.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -188,10 +188,10 @@
                                             </subviews>
                                             <color key="backgroundColor" red="0.97647058819999999" green="0.88235294119999996" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="0cL-j5-FbT" secondAttribute="bottom" constant="16" id="CKZ-kC-SH9"/>
-                                                <constraint firstItem="0cL-j5-FbT" firstAttribute="top" secondItem="JFr-Fz-ARn" secondAttribute="top" constant="16" id="Ckv-R0-40a"/>
-                                                <constraint firstAttribute="trailing" secondItem="0cL-j5-FbT" secondAttribute="trailing" constant="8" id="T9z-NF-B2B"/>
-                                                <constraint firstItem="0cL-j5-FbT" firstAttribute="leading" secondItem="JFr-Fz-ARn" secondAttribute="leading" constant="8" id="xQI-8S-VMg"/>
+                                                <constraint firstAttribute="bottom" secondItem="0cL-j5-FbT" secondAttribute="bottom" constant="8" id="CKZ-kC-SH9"/>
+                                                <constraint firstItem="0cL-j5-FbT" firstAttribute="top" secondItem="JFr-Fz-ARn" secondAttribute="top" constant="8" id="Ckv-R0-40a"/>
+                                                <constraint firstAttribute="trailing" secondItem="0cL-j5-FbT" secondAttribute="trailing" constant="12" id="T9z-NF-B2B"/>
+                                                <constraint firstItem="0cL-j5-FbT" firstAttribute="leading" secondItem="JFr-Fz-ARn" secondAttribute="leading" constant="12" id="xQI-8S-VMg"/>
                                             </constraints>
                                         </view>
                                     </subviews>

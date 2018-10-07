@@ -23,9 +23,8 @@ class ConversationViewController: UITableViewController {
     
     //MARK: - Configuration
     
-    func configureData(with cell: ConversationCell) {
+    func configureData(with cell: ConversationCellConfiguration) {
         self.navigationItem.title = cell.name ?? "Unknown person"
-        
     }
     
     
