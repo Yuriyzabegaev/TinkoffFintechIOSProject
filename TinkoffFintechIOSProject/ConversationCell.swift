@@ -49,7 +49,7 @@ class ConversationCell: UITableViewCell, ConversationCellConfiguration {
                 return
             }
             let formatter = DateFormatter()
-            if Date().timeIntervalSince(date) < 60*60*24 {
+            if Calendar.current.isDateInToday(date) {
                 formatter.dateFormat = "HH:mm"
                 timestampLabel.text = formatter.string(from: date)
             } else {
