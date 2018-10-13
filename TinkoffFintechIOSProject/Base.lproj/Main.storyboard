@@ -39,18 +39,95 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yDa-1r-tix" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2266" y="-192"/>
+            <point key="canvasLocation" x="-1367" y="-186"/>
+        </scene>
+        <!--Obj-C-->
+        <scene sceneID="BeI-gP-lBT">
+            <objects>
+                <navigationController id="g9W-dD-QPx" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Obj-C" id="lyi-g6-SOU"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="9y9-aa-9Te">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="mUT-Lv-XqG" kind="relationship" relationship="rootViewController" id="z74-EX-pRh"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iJU-5U-nBb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1345" y="528"/>
+        </scene>
+        <!--Themes View Controller-->
+        <scene sceneID="QVZ-zH-t0g">
+            <objects>
+                <viewController id="mUT-Lv-XqG" customClass="ThemesViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="XIU-f2-GB2">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="JAx-BE-Yos">
+                                <rect key="frame" x="159" y="302.5" width="57" height="126"/>
+                                <subviews>
+                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TOu-Ox-cbE">
+                                        <rect key="frame" x="0.0" y="0.0" width="57" height="30"/>
+                                        <state key="normal" title="Theme1"/>
+                                        <connections>
+                                            <action selector="themePicked:" destination="mUT-Lv-XqG" eventType="touchUpInside" id="3zL-0V-g9W"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5El-Mi-eqm">
+                                        <rect key="frame" x="0.0" y="48" width="57" height="30"/>
+                                        <state key="normal" title="Theme2"/>
+                                        <connections>
+                                            <action selector="themePicked:" destination="mUT-Lv-XqG" eventType="touchUpInside" id="5cS-xA-BwV"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yNg-ee-VpQ">
+                                        <rect key="frame" x="0.0" y="96" width="57" height="30"/>
+                                        <state key="normal" title="Theme3"/>
+                                        <connections>
+                                            <action selector="themePicked:" destination="mUT-Lv-XqG" eventType="touchUpInside" id="Gdv-TU-E1Q"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="JAx-BE-Yos" firstAttribute="centerY" secondItem="oo1-CA-bW6" secondAttribute="centerY" id="Laf-ah-gCl"/>
+                            <constraint firstItem="JAx-BE-Yos" firstAttribute="centerX" secondItem="oo1-CA-bW6" secondAttribute="centerX" id="lBL-Su-b4e"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="oo1-CA-bW6"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="66s-YI-MAm">
+                        <barButtonItem key="rightBarButtonItem" id="Cwi-ei-00q">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="HZe-LY-kQD">
+                                <rect key="frame" x="281" y="0.0" width="78" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" title="Done"/>
+                                <connections>
+                                    <action selector="dismissScreen:" destination="mUT-Lv-XqG" eventType="touchUpInside" id="j0w-vU-yjG"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9ul-OK-DJC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-462" y="537"/>
         </scene>
         <!--Conversation List View Controller-->
         <scene sceneID="Osm-KJ-nkf">
             <objects>
-                <tableViewController id="V1j-Ro-y11" userLabel="Conversation List View Controller" customClass="ConversationsListViewController" customModule="TinkoffFintechIOSProject" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="V1j-Ro-y11" userLabel="Conversation List View Controller" customClass="ConversationsListViewController" customModule="Obj_C_target" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="SI4-6T-RTw">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ConversationListCell" rowHeight="92" id="4tC-IC-zlT" customClass="ConversationCell" customModule="TinkoffFintechIOSProject" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ConversationListCell" rowHeight="92" id="4tC-IC-zlT" customClass="ConversationCell" customModule="Obj_C_target" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="92"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4tC-IC-zlT" id="0t2-Om-L86">
@@ -105,6 +182,17 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Tinkoff Chat" id="rOR-ri-tb7">
+                        <barButtonItem key="leftBarButtonItem" id="A3N-aP-HCV">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="08G-cw-IjN">
+                                <rect key="frame" x="16" y="7" width="83" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
+                                <state key="normal" title="Themes"/>
+                                <connections>
+                                    <segue destination="g9W-dD-QPx" kind="presentation" identifier="toThemes" id="KOV-kQ-xWw"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" id="6Yg-0b-ABQ">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="I87-8f-7Dp">
                                 <rect key="frame" x="288" y="7" width="71" height="30"/>
@@ -125,13 +213,13 @@
         <!--Conversation View Controller-->
         <scene sceneID="9ia-3u-twY">
             <objects>
-                <tableViewController id="eR5-P4-OgK" userLabel="Conversation View Controller" customClass="ConversationViewController" customModule="TinkoffFintechIOSProject" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="eR5-P4-OgK" userLabel="Conversation View Controller" customClass="ConversationViewController" customModule="Obj_C_target" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="IUI-jO-5Pu">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="IncomingMessageCell" rowHeight="70" id="sMh-PF-jmC" userLabel="IncomingMessageCell" customClass="MessageCell" customModule="TinkoffFintechIOSProject" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="IncomingMessageCell" rowHeight="70" id="sMh-PF-jmC" userLabel="IncomingMessageCell" customClass="MessageCell" customModule="Obj_C_target" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="70"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sMh-PF-jmC" id="6tE-8w-uSO">
@@ -169,7 +257,7 @@
                                     <outlet property="messageLabel" destination="uUg-Oh-4kX" id="0hN-Bi-N38"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="OutgoingMessageCell" rowHeight="70" id="NZf-UM-sbO" userLabel="IncomingMessageCell" customClass="MessageCell" customModule="TinkoffFintechIOSProject" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="OutgoingMessageCell" rowHeight="70" id="NZf-UM-sbO" userLabel="IncomingMessageCell" customClass="MessageCell" customModule="Obj_C_target" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="98" width="375" height="70"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="NZf-UM-sbO" id="9uk-Zh-Q0k">
@@ -222,7 +310,7 @@
         <!--Profile View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" userLabel="Profile View Controller" customClass="ProfileViewController" customModule="TinkoffFintechIOSProject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" userLabel="Profile View Controller" customClass="ProfileViewController" customModule="Obj_C_target" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -296,11 +384,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1361" y="-199"/>
+            <point key="canvasLocation" x="-455" y="-191"/>
         </scene>
     </scenes>
     <resources>
-        <image name="placeholder-user" width="300" height="300"/>
-        <image name="slr-camera-2-xxl" width="128" height="128"/>
+        <image name="placeholder-user" width="600" height="600"/>
+        <image name="slr-camera-2-xxl" width="256" height="256"/>
     </resources>
 </document>

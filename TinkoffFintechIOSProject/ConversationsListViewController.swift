@@ -13,6 +13,7 @@ class ConversationsListViewController: UITableViewController {
     struct SegueIdentifier {
         static let toConversation = "toConversation"
         static let toProfile = "toProfile"
+        static let toThemes = "toThemes"
     }
     
     // MARK: - Properties
@@ -86,6 +87,8 @@ class ConversationsListViewController: UITableViewController {
                 let conversationViewController = segue.destination as? ConversationViewController {
                 conversationViewController.configureData(with: cell)
             }
+        case SegueIdentifier.toThemes:
+            ()
         default:
             return
         }
@@ -139,6 +142,19 @@ class ConversationsListViewController: UITableViewController {
         default:
             return nil
         }
+    }
+    
+}
+
+
+extension ConversationsListViewController: ThemesViewControllerDelegate {
+    
+    func themesViewController(_ controller: ThemesViewController!, didSelectTheme selectedTheme: UIColor!) {
+        logChangeTheme(newTheme: selectedTheme)
+    }
+    
+    private func logChangeTheme(newTheme: UIColor) {
+        print(newTheme.debugDescription)
     }
     
 }
