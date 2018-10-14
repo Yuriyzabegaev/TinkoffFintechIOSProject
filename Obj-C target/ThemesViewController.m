@@ -14,6 +14,7 @@
 
 //MARK: - Properties
 
+
 @synthesize model = _model;
 -(Themes *) model {
     return [[_model retain] autorelease];
@@ -37,7 +38,13 @@
 -(void) viewDidLoad {
     [super viewDidLoad];
         
-    self.model = [[Themes alloc] init];
+    self->_model = [[Themes alloc] init];
+    
+    UIColor * theme = [self getThemeForKey:@"Theme"];
+    if (theme != nil) {
+        self.view.backgroundColor = theme;
+        self.navigationController.navigationBar.barTintColor = theme;
+    }
 }
 
 
@@ -49,7 +56,7 @@
 }
 
 - (IBAction)dismissScreen:(UIButton *)sender {
-        [self dismissViewControllerAnimated: true completion: nil];
+    [self dismissViewControllerAnimated: true completion: nil];
 }
 
 
@@ -57,8 +64,20 @@
 
 -(void) changeThemeTo: (UIColor *)theme {
     self.view.backgroundColor = theme;
+    if (self.navigationController != nil) {
+        self.navigationController.navigationBar.barTintColor = theme;
+    }
     [_delegate themesViewController:self didSelectTheme: theme];
 
+}
+
+-(UIColor *) getThemeForKey: (NSString *)key {
+    NSData * themeData = [NSUserDefaults.standardUserDefaults dataForKey: key];
+    UIColor * theme = nil;
+    if (themeData != nil) {
+        theme = [NSKeyedUnarchiver unarchivedObjectOfClass: UIColor.class fromData:themeData error: nil];
+    }
+    return theme;
 }
 
 

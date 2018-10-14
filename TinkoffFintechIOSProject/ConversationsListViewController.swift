@@ -16,6 +16,7 @@ class ConversationsListViewController: UITableViewController {
         static let toThemes = "toThemes"
     }
     
+    
     // MARK: - Properties
     
     lazy var onlineConversationsLastMessages : [(String?, String?, Date?, Bool, Bool)] = {
@@ -83,12 +84,32 @@ class ConversationsListViewController: UITableViewController {
         
         switch segue.identifier {
         case SegueIdentifier.toConversation:
+            
             if let cell = sender as? ConversationCellConfiguration,
                 let conversationViewController = segue.destination as? ConversationViewController {
                 conversationViewController.configureData(with: cell)
             }
+            
         case SegueIdentifier.toThemes:
-            ()
+            
+            if let navigationController = segue.destination as? UINavigationController {
+                if Product.whoAmI == "Swift Product" {
+                    
+                    guard let themesSwiftViewController = (storyboard?.instantiateViewController(withIdentifier: "Swift-ThemesViewController")) as? ThemesSwiftViewController else { return }
+                    
+                    themesSwiftViewController.themePickerHandler = { [weak self] newTheme in
+                        self?.logThemeChanging(selectedTheme: newTheme)
+                    }
+                    navigationController.pushViewController(themesSwiftViewController, animated: true)
+                    
+                } else if Product.whoAmI == "Obj-C Product" {
+                    
+                    guard let themesObjCViewController = (storyboard?.instantiateViewController(withIdentifier: "Obj-C-ThemesViewController")) as? ThemesViewController else { return }
+                    
+                    themesObjCViewController.delegate = self
+                    navigationController.pushViewController(themesObjCViewController, animated: true)
+                }
+            }
         default:
             return
         }
@@ -150,11 +171,13 @@ class ConversationsListViewController: UITableViewController {
 extension ConversationsListViewController: ThemesViewControllerDelegate {
     
     func themesViewController(_ controller: ThemesViewController!, didSelectTheme selectedTheme: UIColor!) {
-        logChangeTheme(newTheme: selectedTheme)
+        logThemeChanging(selectedTheme: selectedTheme)
     }
     
-    private func logChangeTheme(newTheme: UIColor) {
-        print(newTheme.debugDescription)
+    private func logThemeChanging(selectedTheme: UIColor) {
+        print(#function, selectedTheme.debugDescription)
+        UserDefaults.standard.setTheme(theme: selectedTheme, forKey: "Theme")
+        UINavigationBar.appearance().barTintColor = selectedTheme
     }
     
 }

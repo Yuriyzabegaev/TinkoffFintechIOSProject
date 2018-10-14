@@ -8,12 +8,13 @@
 
 import UIKit
 
-@objc(ThemesViewController) class ThemesViewController: UIViewController {
+class ThemesSwiftViewController: UIViewController {
 
     //MARK: - Properties
-        
+            
     var themePickerHandler: ((UIColor)->())?
     let model = Themes()
+    var delegate: ThemesViewControllerDelegate?
     
     //MARK: - Actions
     
@@ -30,6 +31,11 @@ import UIKit
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let theme = UserDefaults.standard.getTheme(forKey: "Theme") {
+            view.backgroundColor = theme
+            self.navigationController?.navigationBar.barTintColor = theme;
+        }
     }
     
     
@@ -37,6 +43,7 @@ import UIKit
     
     private func changeThemeTo(newTheme: UIColor) {
         self.view.backgroundColor = newTheme
+        self.navigationController?.navigationBar.barTintColor = newTheme;
         themePickerHandler?(newTheme)
     }
 }

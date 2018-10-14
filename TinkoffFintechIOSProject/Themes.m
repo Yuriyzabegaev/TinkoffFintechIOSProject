@@ -44,9 +44,9 @@
 
 -(instancetype) init {
     if (self = [super init]) {
-        self.theme1 = [UIColor blackColor];
-        self.theme2 = [UIColor whiteColor];
-        self.theme3 = [UIColor yellowColor];
+        self->_theme1 = [[UIColor alloc] initWithRed:40/255.0 green:42/255.0 blue:53/255.0 alpha:1];
+        self->_theme2 = [UIColor whiteColor];
+        self->_theme3 = [[UIColor alloc] initWithRed:249/255.0 green:231/255.0 blue:53/255.0 alpha:1];
     }
     return self;
 }

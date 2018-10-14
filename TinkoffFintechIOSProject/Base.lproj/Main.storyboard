@@ -50,53 +50,58 @@
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
-                    <connections>
-                        <segue destination="mUT-Lv-XqG" kind="relationship" relationship="rootViewController" id="z74-EX-pRh"/>
-                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iJU-5U-nBb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1345" y="528"/>
         </scene>
-        <!--Themes View Controller-->
+        <!--Themes View Controller (Obj-C)-->
         <scene sceneID="QVZ-zH-t0g">
             <objects>
-                <viewController id="mUT-Lv-XqG" customClass="ThemesViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Obj-C-ThemesViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="mUT-Lv-XqG" userLabel="Themes View Controller (Obj-C)" customClass="ThemesViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XIU-f2-GB2">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="JAx-BE-Yos">
-                                <rect key="frame" x="159" y="302.5" width="57" height="126"/>
+                                <rect key="frame" x="163.5" y="280.5" width="48" height="126"/>
                                 <subviews>
-                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TOu-Ox-cbE">
-                                        <rect key="frame" x="0.0" y="0.0" width="57" height="30"/>
-                                        <state key="normal" title="Theme1"/>
-                                        <connections>
-                                            <action selector="themePicked:" destination="mUT-Lv-XqG" eventType="touchUpInside" id="3zL-0V-g9W"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5El-Mi-eqm">
-                                        <rect key="frame" x="0.0" y="48" width="57" height="30"/>
-                                        <state key="normal" title="Theme2"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="48" height="30"/>
+                                        <state key="normal" title="Day"/>
                                         <connections>
                                             <action selector="themePicked:" destination="mUT-Lv-XqG" eventType="touchUpInside" id="5cS-xA-BwV"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TOu-Ox-cbE">
+                                        <rect key="frame" x="0.0" y="48" width="48" height="30"/>
+                                        <state key="normal" title="Night"/>
+                                        <connections>
+                                            <action selector="themePicked:" destination="mUT-Lv-XqG" eventType="touchUpInside" id="3zL-0V-g9W"/>
+                                        </connections>
+                                    </button>
                                     <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yNg-ee-VpQ">
-                                        <rect key="frame" x="0.0" y="96" width="57" height="30"/>
-                                        <state key="normal" title="Theme3"/>
+                                        <rect key="frame" x="0.0" y="96" width="48" height="30"/>
+                                        <state key="normal" title="Tinkoff"/>
                                         <connections>
                                             <action selector="themePicked:" destination="mUT-Lv-XqG" eventType="touchUpInside" id="Gdv-TU-E1Q"/>
                                         </connections>
                                     </button>
                                 </subviews>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Objective C experience" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="naD-UP-CjK">
+                                <rect key="frame" x="99" y="52" width="177.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="JAx-BE-Yos" firstAttribute="centerY" secondItem="oo1-CA-bW6" secondAttribute="centerY" id="Laf-ah-gCl"/>
                             <constraint firstItem="JAx-BE-Yos" firstAttribute="centerX" secondItem="oo1-CA-bW6" secondAttribute="centerX" id="lBL-Su-b4e"/>
+                            <constraint firstItem="naD-UP-CjK" firstAttribute="centerX" secondItem="oo1-CA-bW6" secondAttribute="centerX" id="lIX-VR-W00"/>
+                            <constraint firstItem="naD-UP-CjK" firstAttribute="top" secondItem="oo1-CA-bW6" secondAttribute="top" constant="32" id="ndV-Eb-nXd"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="oo1-CA-bW6"/>
                     </view>
@@ -116,7 +121,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9ul-OK-DJC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-462" y="537"/>
+            <point key="canvasLocation" x="-470" y="521"/>
         </scene>
         <!--Conversation List View Controller-->
         <scene sceneID="Osm-KJ-nkf">
@@ -385,6 +390,74 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-455" y="-191"/>
+        </scene>
+        <!--Themes Swift View Controller-->
+        <scene sceneID="0mM-K9-uxH">
+            <objects>
+                <viewController storyboardIdentifier="Swift-ThemesViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="zdy-ks-XMx" customClass="ThemesSwiftViewController" customModule="TinkoffFintechIOSProject" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="eIf-0q-9Ej">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="i9F-iN-5h1">
+                                <rect key="frame" x="163.5" y="280.5" width="48" height="126"/>
+                                <subviews>
+                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pmx-Zd-T7h">
+                                        <rect key="frame" x="0.0" y="0.0" width="48" height="30"/>
+                                        <state key="normal" title="Day"/>
+                                        <connections>
+                                            <action selector="themePicked:" destination="zdy-ks-XMx" eventType="touchUpInside" id="CGW-nF-QGh"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="idW-TT-MRT">
+                                        <rect key="frame" x="0.0" y="48" width="48" height="30"/>
+                                        <state key="normal" title="Night"/>
+                                        <connections>
+                                            <action selector="themePicked:" destination="zdy-ks-XMx" eventType="touchUpInside" id="7C7-ke-Ulk"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BKp-0J-Cny">
+                                        <rect key="frame" x="0.0" y="96" width="48" height="30"/>
+                                        <state key="normal" title="Tinkoff"/>
+                                        <connections>
+                                            <action selector="themePicked:" destination="zdy-ks-XMx" eventType="touchUpInside" id="oJu-QG-Y1x"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swift experience" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yxO-D0-PhX">
+                                <rect key="frame" x="124" y="52" width="127" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="i9F-iN-5h1" firstAttribute="centerY" secondItem="wo5-6H-fiC" secondAttribute="centerY" id="ZZz-6b-eK0"/>
+                            <constraint firstItem="yxO-D0-PhX" firstAttribute="top" secondItem="wo5-6H-fiC" secondAttribute="top" constant="32" id="chW-ef-ZNW"/>
+                            <constraint firstItem="i9F-iN-5h1" firstAttribute="centerX" secondItem="wo5-6H-fiC" secondAttribute="centerX" id="cvy-IS-a8k"/>
+                            <constraint firstItem="yxO-D0-PhX" firstAttribute="centerX" secondItem="wo5-6H-fiC" secondAttribute="centerX" id="xCu-cP-U9h"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="wo5-6H-fiC"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="DWB-Q4-XbO">
+                        <barButtonItem key="rightBarButtonItem" id="5Hw-ql-bSA">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="XX1-eu-PQK">
+                                <rect key="frame" x="281" y="0.0" width="78" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" title="Done"/>
+                                <connections>
+                                    <action selector="dismissScreen:" destination="zdy-ks-XMx" eventType="touchUpInside" id="jDB-h3-VXU"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="i21-8Q-CwK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="138" y="521"/>
         </scene>
     </scenes>
     <resources>

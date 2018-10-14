@@ -14,10 +14,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
         
-        // Change to false to disable logging in whole application.
-        Logger.isLogging = true
+        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor : UIColor.lightGray]
+        
+        if let theme = UserDefaults.standard.getTheme(forKey: "Theme") {
+            UINavigationBar.appearance().barTintColor = theme
+//            UINavigationBar.appearance().backgroundColor = theme
+        }
         
         return true
     }
