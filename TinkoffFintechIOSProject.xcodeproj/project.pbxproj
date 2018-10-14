@@ -87,11 +87,9 @@
 		0B70542F21721C36009AAA4B /* Obj-C target */ = {
 			isa = PBXGroup;
 			children = (
-				0B70544421721CC2009AAA4B /* Product.swift */,
 				0B724869216EAB49003C90F4 /* ThemesViewController.m */,
 				0B4F9C09216F2404006D284B /* ThemesViewController.h */,
 				0BFBED41217124880062757F /* ThemesViewControllerDelegate.h */,
-				0B70545B21722329009AAA4B /* Obj-C target-Bridging-Header.h */,
 			);
 			path = "Obj-C target";
 			sourceTree = "<group>";
@@ -99,9 +97,7 @@
 		0B70544621721CFC009AAA4B /* Swift target */ = {
 			isa = PBXGroup;
 			children = (
-				0B70544721721D2D009AAA4B /* Product.swift */,
 				0BFBED4221712D2C0062757F /* ThemesSwiftViewController.swift */,
-				0B70545A21721FA1009AAA4B /* TinkoffFintechIOSProject-Bridging-Header.h */,
 			);
 			path = "Swift target";
 			sourceTree = "<group>";
@@ -109,9 +105,9 @@
 		0BDA3C242154401D0065E627 = {
 			isa = PBXGroup;
 			children = (
+				0BE6E60B21737E35004093D1 /* Obj-C target */,
+				0BE6E60A21737E25004093D1 /* Swift target */,
 				0BDA3C2F2154401D0065E627 /* TinkoffFintechIOSProject */,
-				0B70544621721CFC009AAA4B /* Swift target */,
-				0B70542F21721C36009AAA4B /* Obj-C target */,
 				0BDA3C2E2154401D0065E627 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -129,21 +125,81 @@
 			isa = PBXGroup;
 			children = (
 				0BDA3C302154401D0065E627 /* AppDelegate.swift */,
-				0BDA3C322154401D0065E627 /* ProfileViewController.swift */,
-				0B53DCFC21654454003585F0 /* ConversationsListViewController.swift */,
-				0BDA3C342154401D0065E627 /* Main.storyboard */,
 				0BDA3C37215440200065E627 /* Assets.xcassets */,
+				0BDA3C342154401D0065E627 /* Main.storyboard */,
 				0BDA3C39215440200065E627 /* LaunchScreen.storyboard */,
 				0BDA3C3C215440200065E627 /* Info.plist */,
-				0BDA3C422154441D0065E627 /* Logger.swift */,
-				0B53DCFE2165532E003585F0 /* ConversationCell.swift */,
-				0B79E39D2167BE9600A7BFD8 /* MessageCell.swift */,
-				0B47055B21679D8A002A10C7 /* ConversationViewController.swift */,
-				0B4F9C0B216F283E006D284B /* Themes.m */,
-				0B4F9C0A216F2817006D284B /* Themes.h */,
-				0B1B77B4217358F500C3DECC /* Extensions.swift */,
+				0BE6E60E21737EAA004093D1 /* Profile */,
+				0BE6E60D21737E8E004093D1 /* Conversation */,
+				0BE6E60C21737E77004093D1 /* ConversationList */,
+				0BE6E60921737DBD004093D1 /* Themes */,
+				0BE6E60F21737EC4004093D1 /* Extensions */,
 			);
 			path = TinkoffFintechIOSProject;
+			sourceTree = "<group>";
+		};
+		0BE6E60921737DBD004093D1 /* Themes */ = {
+			isa = PBXGroup;
+			children = (
+				0B4F9C0B216F283E006D284B /* Themes.m */,
+				0B4F9C0A216F2817006D284B /* Themes.h */,
+				0B70542F21721C36009AAA4B /* Obj-C target */,
+				0B70544621721CFC009AAA4B /* Swift target */,
+			);
+			path = Themes;
+			sourceTree = "<group>";
+		};
+		0BE6E60A21737E25004093D1 /* Swift target */ = {
+			isa = PBXGroup;
+			children = (
+				0B70545A21721FA1009AAA4B /* TinkoffFintechIOSProject-Bridging-Header.h */,
+				0B70544721721D2D009AAA4B /* Product.swift */,
+			);
+			path = "Swift target";
+			sourceTree = "<group>";
+		};
+		0BE6E60B21737E35004093D1 /* Obj-C target */ = {
+			isa = PBXGroup;
+			children = (
+				0B70545B21722329009AAA4B /* Obj-C target-Bridging-Header.h */,
+				0B70544421721CC2009AAA4B /* Product.swift */,
+			);
+			path = "Obj-C target";
+			sourceTree = "<group>";
+		};
+		0BE6E60C21737E77004093D1 /* ConversationList */ = {
+			isa = PBXGroup;
+			children = (
+				0B53DCFC21654454003585F0 /* ConversationsListViewController.swift */,
+				0B53DCFE2165532E003585F0 /* ConversationCell.swift */,
+			);
+			path = ConversationList;
+			sourceTree = "<group>";
+		};
+		0BE6E60D21737E8E004093D1 /* Conversation */ = {
+			isa = PBXGroup;
+			children = (
+				0B47055B21679D8A002A10C7 /* ConversationViewController.swift */,
+				0B79E39D2167BE9600A7BFD8 /* MessageCell.swift */,
+			);
+			path = Conversation;
+			sourceTree = "<group>";
+		};
+		0BE6E60E21737EAA004093D1 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				0BDA3C322154401D0065E627 /* ProfileViewController.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		0BE6E60F21737EC4004093D1 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				0B1B77B4217358F500C3DECC /* Extensions.swift */,
+				0BDA3C422154441D0065E627 /* Logger.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
