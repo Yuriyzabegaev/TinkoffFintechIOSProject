@@ -98,7 +98,7 @@ class ConversationsListViewController: UITableViewController {
                     guard let themesSwiftViewController = (storyboard?.instantiateViewController(withIdentifier: "Swift-ThemesViewController")) as? ThemesSwiftViewController else { return }
                     
                     themesSwiftViewController.themePickerHandler = { [weak self] newTheme in
-                        self?.logThemeChanging(selectedTheme: newTheme)
+                        self?.considerThemeChanging(selectedTheme: newTheme)
                     }
                     navigationController.pushViewController(themesSwiftViewController, animated: true)
                     
@@ -171,13 +171,17 @@ class ConversationsListViewController: UITableViewController {
 extension ConversationsListViewController: ThemesViewControllerDelegate {
     
     func themesViewController(_ controller: ThemesViewController!, didSelectTheme selectedTheme: UIColor!) {
-        logThemeChanging(selectedTheme: selectedTheme)
+        considerThemeChanging(selectedTheme: selectedTheme)
     }
     
     private func logThemeChanging(selectedTheme: UIColor) {
         print(#function, selectedTheme.debugDescription)
+    }
+    
+    private func considerThemeChanging(selectedTheme: UIColor) {
         UserDefaults.standard.setTheme(theme: selectedTheme, forKey: "Theme")
         UINavigationBar.appearance().barTintColor = selectedTheme
+        logThemeChanging(selectedTheme: selectedTheme)
     }
     
 }
