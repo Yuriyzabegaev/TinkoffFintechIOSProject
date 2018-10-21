@@ -14,7 +14,6 @@ class ThemesSwiftViewController: UIViewController {
             
     var themePickerHandler: ((UIColor)->())?
     let model = Themes()
-    var delegate: ThemesViewControllerDelegate?
     
     //MARK: - Actions
     
