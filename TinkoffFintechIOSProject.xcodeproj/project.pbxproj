@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0B1B77B5217358F500C3DECC /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1B77B4217358F500C3DECC /* Extensions.swift */; };
-		0B276A16217BED910093D1BA /* GCDDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B276A15217BED910093D1BA /* GCDDataManager.swift */; };
 		0B276A18217C87710093D1BA /* ProfileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B276A17217C87710093D1BA /* ProfileData.swift */; };
 		0B276A1A217C88010093D1BA /* ProfileDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B276A19217C88010093D1BA /* ProfileDataHandler.swift */; };
 		0B276A1C217C92120093D1BA /* GCDProfileDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B276A1B217C92120093D1BA /* GCDProfileDataManager.swift */; };
@@ -32,7 +31,6 @@
 
 /* Begin PBXFileReference section */
 		0B1B77B4217358F500C3DECC /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		0B276A15217BED910093D1BA /* GCDDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCDDataManager.swift; sourceTree = "<group>"; };
 		0B276A17217C87710093D1BA /* ProfileData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileData.swift; sourceTree = "<group>"; };
 		0B276A19217C88010093D1BA /* ProfileDataHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDataHandler.swift; sourceTree = "<group>"; };
 		0B276A1B217C92120093D1BA /* GCDProfileDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCDProfileDataManager.swift; sourceTree = "<group>"; };
@@ -117,7 +115,6 @@
 				0BE6E60C21737E77004093D1 /* ConversationList */,
 				0BE6E60921737DBD004093D1 /* Themes */,
 				0BE6E60F21737EC4004093D1 /* Extensions */,
-				0B276A15217BED910093D1BA /* GCDDataManager.swift */,
 			);
 			path = TinkoffFintechIOSProject;
 			sourceTree = "<group>";
@@ -258,7 +255,6 @@
 				0B276A1E217C922A0093D1BA /* ProfileDataManagerProtocol.swift in Sources */,
 				0B276A1A217C88010093D1BA /* ProfileDataHandler.swift in Sources */,
 				0B276A28217CC6DE0093D1BA /* LoadProfileDataOperation.swift in Sources */,
-				0B276A16217BED910093D1BA /* GCDDataManager.swift in Sources */,
 				0B4F9C0C216F283E006D284B /* Themes.m in Sources */,
 				0BDA3C312154401D0065E627 /* AppDelegate.swift in Sources */,
 				0B276A18217C87710093D1BA /* ProfileData.swift in Sources */,
