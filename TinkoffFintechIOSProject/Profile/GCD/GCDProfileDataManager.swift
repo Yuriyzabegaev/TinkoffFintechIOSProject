@@ -12,9 +12,15 @@ import Foundation
 class GCDProfileDataManager: ProfileDataManager {
     
     private let dataHandler = ProfileDataHandler()
+    let queueLabel: String
+    let queue: DispatchQueue
+    
+    init() {
+        queueLabel = "ru.fintech-chat.save-profile-queue"
+        queue = DispatchQueue(label: queueLabel, qos: .userInitiated)
+    }
     
     func save(profileData: ProfileData, completion: ((Bool) -> ())? ) {
-        let queue = DispatchQueue.global(qos: .userInitiated)
         queue.async { [weak self] in
             guard let dataHandler = self?.dataHandler else { return }
             let isSucceeded = dataHandler.save(profileData: profileData)
@@ -26,9 +32,10 @@ class GCDProfileDataManager: ProfileDataManager {
     
     func loadProfileData(completion: ((ProfileData) -> ())? ) {
         let queue = DispatchQueue.global(qos: .userInitiated)
-        queue.async { [self] in
+        queue.async {
+            let newData = self.dataHandler.loadProfileData()
             DispatchQueue.main.async {
-                completion?(self.dataHandler.loadProfileData())
+                completion?(newData)
             }
         }
         

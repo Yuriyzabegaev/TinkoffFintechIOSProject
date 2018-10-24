@@ -14,28 +14,37 @@
 
 @synthesize theme1 = _theme1;
 -(UIColor *) theme1 {
-    return [[_theme1 retain] autorelease];
+    return [_theme1 retain];
 }
 -(void) setTheme1:(UIColor *)theme1 {
-    [_theme1 autorelease];
+    if (_theme1 == theme1) {
+        return;
+    }
+    [_theme1 release];
     _theme1 = [theme1 retain];
 }
 
 @synthesize theme2 = _theme2;
 -(UIColor *) theme2 {
-    return [[_theme2 retain] autorelease];
+    return [_theme2 retain];
 }
 -(void) setTheme2:(UIColor *)theme2 {
-    [_theme2 autorelease];
+    if (_theme2 == theme2) {
+        return;
+    }
+    [_theme2 release];
     _theme2 = [theme2 retain];
 }
 
 @synthesize theme3 = _theme3;
 -(UIColor *) theme3 {
-    return [[_theme3 retain] autorelease];
+    return [_theme3 retain];
 }
 -(void) setTheme3:(UIColor *)theme3 {
-    [_theme3 autorelease];
+    if (_theme3 == theme3) {
+        return;
+    }
+    [_theme3 release];
     _theme3 = [theme3 retain];
 }
 

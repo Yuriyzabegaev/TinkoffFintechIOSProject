@@ -11,12 +11,13 @@ import Foundation
 
 class OperationProfileDataManager: ProfileDataManager {
     
+    let operationQueue = OperationQueue()
+    
     func save(profileData: ProfileData, completion: ((Bool) -> ())?) {
         let saveOperation = SaveProfileDataOperation(profileData: profileData, completion: { isSucceeded in
             OperationQueue.main.addOperation { completion?(isSucceeded) }
         })
         
-        let operationQueue = OperationQueue()
         operationQueue.qualityOfService = .userInitiated
         operationQueue.addOperation(saveOperation)
     }
@@ -26,7 +27,6 @@ class OperationProfileDataManager: ProfileDataManager {
             OperationQueue.main.addOperation { completion?(data) }
         })
         
-        let operationQueue = OperationQueue()
         operationQueue.qualityOfService = .userInitiated
         operationQueue.addOperation(loadOperation)
     }
