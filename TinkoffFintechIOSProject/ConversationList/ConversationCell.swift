@@ -10,6 +10,8 @@ import UIKit
 
 
 protocol ConversationCellConfiguration: class {
+    var userID: String {get set}
+    
     var name : String? {get set}
     var message : String? {get set}
     var date : Date? {get set}
@@ -21,6 +23,7 @@ protocol ConversationCellConfiguration: class {
 class ConversationCell: UITableViewCell, ConversationCellConfiguration {
     
     //MARK: - properties
+    var userID: String = ""
     
     var name: String? {
         didSet {

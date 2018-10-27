@@ -15,10 +15,10 @@ class ProfileDataHandler {
     
     private let defaults: UserDefaults
     
-    private let suiteName = "ru.tinkoffFintechIOSProject.profile"
+    static let suiteName = "ru.tinkoffFintechIOSProject.profile"
     
-    private let nameKey = "name"
-    private let bioKey = "bio"
+    static let nameKey = "name"
+    static let bioKey = "bio"
     private let imageFileName = "photo.png"
     
     private let storageDirectoryURL: URL
@@ -27,7 +27,7 @@ class ProfileDataHandler {
     // MARK: - Initialization
 
     init() {
-        defaults = UserDefaults.init(suiteName: suiteName)!
+        defaults = UserDefaults.init(suiteName: ProfileDataHandler.suiteName)!
         storageDirectoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("Profile", isDirectory: true)
         
         let directoryExists = FileManager.default.fileExists(atPath: storageDirectoryURL.path)
@@ -36,16 +36,21 @@ class ProfileDataHandler {
         }
     }
     
+    
+    static func getMyDisplayName() -> String {
+        return UserDefaults(suiteName: ProfileDataHandler.suiteName)?.object(forKey: ProfileDataHandler.nameKey) as? String ?? UIDevice.current.name
+    }
+    
     // MARK: - Public methods
     
     func save(profileData: ProfileData) -> Bool {
         if profileData.nameIsChanged,
             let name = profileData.name {
-            defaults.set(name, forKey: nameKey)
+            defaults.set(name, forKey: ProfileDataHandler.nameKey)
         }
         if profileData.bioIsChanged,
             let bio = profileData.bio {
-            defaults.set(bio, forKey: bioKey)
+            defaults.set(bio, forKey: ProfileDataHandler.bioKey)
         }
         if profileData.imageIsChanged,
             let image = profileData.image {
@@ -61,8 +66,8 @@ class ProfileDataHandler {
     }
     
     func loadProfileData() -> ProfileData {
-        let name = defaults.object(forKey: nameKey) as? String
-        let bio = defaults.object(forKey: bioKey) as? String
+        let name = defaults.object(forKey: ProfileDataHandler.nameKey) as? String
+        let bio = defaults.object(forKey: ProfileDataHandler.bioKey) as? String
         let image = UIImage(contentsOfFile: storageDirectoryURL.appendingPathComponent(imageFileName, isDirectory: false).path)
         return ProfileData(name: name, bio: bio, image: image)
     }

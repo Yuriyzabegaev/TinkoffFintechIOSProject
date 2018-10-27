@@ -1,0 +1,280 @@
+//
+//  Communicator.swift
+//  TinkoffFintechIOSProject
+//
+//  Created by Юрий Забегаев on 24/10/2018.
+//  Copyright © 2018 Юрий Забегаев. All rights reserved.
+//
+
+import Foundation
+import MultipeerConnectivity
+
+
+protocol CommunicatorDelegate: class {
+    // discovering
+    func didFoundUser(userId: String, userName: String?)
+    func didLostUser(userId: String)
+    
+    // errors
+    func failedToStartBrowsingForUsers(error: Error)
+    func failedToStartAdvertising(error: Error)
+    
+    // messages
+    func didReceiveMessage(text: String, fromUser: String, toUser: String)
+}
+
+
+protocol Communicator: class {
+    func sendMessage(string: String, to userId: String, completionHandler: ((_ success: Bool, _ error: Error?) -> ())?)
+    var delegate: CommunicatorDelegate? {get set}
+    var online: Bool {get set}
+    
+    var myUserID: String {get}
+    var visibleUserName: String {get set}
+}
+
+
+class MultipeerCommunicator: NSObject {
+
+    private(set) var serviceType = "tinkoff-chat"
+    private var discoveryInfo: [String: String]
+//    private let myPeerId: MCPeerID
+    private let myBrowserPeerId: MCPeerID
+    private let myAdvertiserPeerId: MCPeerID
+    private let defaultTimeout: TimeInterval = 60
+    
+    private var sessionsForPeer: [MCPeerID:MCSession] = [:]
+    
+    private let serviceAdvertiser : MCNearbyServiceAdvertiser
+    private let serviceBrowser : MCNearbyServiceBrowser
+    
+    var delegate: CommunicatorDelegate?
+    var online: Bool = true
+    
+    var myUserID: String {
+        return myAdvertiserPeerId.displayName
+    }
+    
+    var visibleUserName: String {
+        get {
+            return discoveryInfo["userName"]!
+        }
+        set(newName) {
+            discoveryInfo["userName"] = newName
+        }
+    }
+    
+    init(username: String) {
+        
+        discoveryInfo = ["userName": username]
+        myAdvertiserPeerId = MCPeerID(displayName: UIDevice.current.name)
+        myBrowserPeerId = MCPeerID(displayName: "***browser*** " + UIDevice.current.name)
+        
+        serviceAdvertiser = MCNearbyServiceAdvertiser(peer: myAdvertiserPeerId, discoveryInfo: discoveryInfo, serviceType: serviceType)
+        serviceBrowser = MCNearbyServiceBrowser(peer: myBrowserPeerId, serviceType: serviceType)
+        
+        super.init()
+
+        serviceAdvertiser.delegate = self
+        serviceAdvertiser.startAdvertisingPeer()
+        
+        serviceBrowser.delegate = self
+        serviceBrowser.startBrowsingForPeers()
+    }
+    
+    deinit {
+        serviceBrowser.stopBrowsingForPeers()
+        serviceAdvertiser.stopAdvertisingPeer()
+        
+        for session in sessionsForPeer.values {
+            session.disconnect()
+        }
+    }
+
+}
+
+
+extension MultipeerCommunicator: Communicator {
+    func sendMessage(string: String, to userId: String, completionHandler: ((Bool, Error?) -> ())?) {
+        guard let receiverPeerID = sessionsForPeer.keys.first(where: {peer in
+            peer.displayName == userId
+        }) else {
+            let error = MultipeerCommunicatorError.sessionNotFoundError(#function + " No peer found for given userId")
+            completionHandler?(false, error)
+            return
+        }
+        
+        guard let session = sessionsForPeer[receiverPeerID] else {
+            let error = MultipeerCommunicatorError.sessionNotFoundError(#function + " No session available for given userId")
+            completionHandler?(false, error)
+            return
+        }
+        let message = MultipeerCommunicatorMessage(text: string)
+        do {
+            let messageData = try message.encoded()
+            try session.send(messageData, toPeers: [receiverPeerID], with: .reliable)
+        } catch let error {
+            print(error.localizedDescription)
+            completionHandler?(false, error)
+            return
+        }
+        completionHandler?(true, nil)
+    }
+}
+
+
+extension MultipeerCommunicator: MCSessionDelegate {
+    func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
+        
+        print(session.connectedPeers)
+        
+        switch state {
+        case .connected:
+            print(peerID.displayName + " is connected")
+        case .notConnected:
+            print(peerID.displayName + " not connected")
+            serviceBrowser.invitePeer(peerID, to: session, withContext: nil, timeout: defaultTimeout)
+//            delegate?.didLostUser(userId: peerID.displayName)
+        case .connecting:
+            print(peerID.displayName + " connecting")
+        }
+    }
+    
+    func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
+        if let message = try? MultipeerCommunicatorMessage(jsonData: data) {
+            var sender = peerID.displayName
+            if sender.hasPrefix("***browser*** ") {
+                sender = String(sender.dropFirst("***browser*** ".count))
+            }
+            delegate?.didReceiveMessage(text: message.text,
+                                        fromUser: sender,
+                                        toUser: myAdvertiserPeerId.displayName)
+        }
+    }
+    
+    func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
+        fatalError(#function + " not implemented")
+    }
+    
+    func session(_ session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, with progress: Progress) {
+        fatalError(#function + " not implemented")
+    }
+    
+    func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL?, withError error: Error?) {
+        fatalError(#function + " not implemented")
+    }
+    
+    
+}
+
+
+extension MultipeerCommunicator: MCNearbyServiceAdvertiserDelegate {
+    func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: Data?, invitationHandler: @escaping (Bool, MCSession?) -> Void) {
+        
+        if !peerID.displayName.hasPrefix("***browser*** ") {
+            invitationHandler(false, nil)
+            return
+        }
+        
+//        // check if peer has a session already established
+        if let oldSession = sessionsForPeer[peerID] {
+            invitationHandler(true, oldSession)
+            return
+        }
+        
+        let newSession = MCSession(peer: myAdvertiserPeerId, securityIdentity: nil, encryptionPreference: .none)
+        newSession.delegate = self
+        sessionsForPeer[peerID] = newSession
+        
+        invitationHandler(true, newSession)
+    }
+    
+    func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didNotStartAdvertisingPeer error: Error) {
+        delegate?.failedToStartAdvertising(error: error)
+    }
+    
+}
+
+
+extension MultipeerCommunicator: MCNearbyServiceBrowserDelegate {
+    func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String : String]?) {
+        
+        if peerID.displayName.hasPrefix("***browser***") { return }
+        
+        if peerID.displayName == myAdvertiserPeerId.displayName || peerID.displayName == myBrowserPeerId.displayName {
+            return
+        }
+        
+        delegate?.didFoundUser(userId: peerID.displayName, userName: info?["userName"])
+        
+        // check if peer has a session already established
+        if let _ = sessionsForPeer[peerID] {
+            return
+        }
+        
+        // make an invite
+        let newSession = MCSession(peer: myBrowserPeerId, securityIdentity: nil, encryptionPreference: .none)
+        newSession.delegate = self
+        browser.invitePeer(peerID, to: newSession, withContext: nil, timeout: defaultTimeout)
+        
+        sessionsForPeer[peerID] = newSession
+    }
+    
+    func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
+        if peerID.displayName == myAdvertiserPeerId.displayName || peerID.displayName == myBrowserPeerId.displayName {
+            return
+        }
+        if sessionsForPeer.removeValue(forKey: peerID) != nil {
+            delegate?.didLostUser(userId: peerID.displayName)
+        }
+    }
+    
+    func browser(_ browser: MCNearbyServiceBrowser, didNotStartBrowsingForPeers error: Error) {
+        delegate?.failedToStartBrowsingForUsers(error: error)
+    }
+    
+}
+
+
+extension MultipeerCommunicator {
+    enum MultipeerCommunicatorError: Error {
+        case sessionNotFoundError(String)
+    }
+    
+    private struct MultipeerCommunicatorMessage: Codable {
+        private static let decoder = JSONDecoder()
+        private static let encoder = JSONEncoder()
+        
+        private(set) var eventType: String = "TextMessage"
+        private(set) var messageId: String
+        private(set) var text: String
+        
+        init(text: String) {
+            self.text = text
+            self.messageId = MultipeerCommunicatorMessage.generateMessagId()
+        }
+        
+        init(jsonData: Data) throws {
+            do {
+                self = try MultipeerCommunicatorMessage.decoder.decode(MultipeerCommunicatorMessage.self, from: jsonData)
+            } catch let error {
+                throw error
+            }
+        }
+        
+        func encoded() throws -> Data {
+            do {
+                let encoder = JSONEncoder()
+                let data = try encoder.encode(self)
+                return data
+            } catch let error {
+                throw error
+            }
+        }
+        
+        private static func generateMessagId() -> String {
+            return "\(arc4random_uniform(UINT32_MAX))+\(Date.timeIntervalSinceReferenceDate)+\(arc4random_uniform(UINT32_MAX))".data(using: .utf8)!.base64EncodedString()
+        }
+        
+    }
+}

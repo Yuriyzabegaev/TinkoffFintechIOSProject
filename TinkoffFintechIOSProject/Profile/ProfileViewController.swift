@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: KeyboardInputViewController {
     
     // MARK: - Outlets
 
@@ -157,19 +157,6 @@ class ProfileViewController: UIViewController {
                                                                  action: #selector(self.dismissScreen))
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(self.keyboardWillShow(notification:)),
-                                               name: UIResponder.keyboardWillShowNotification,
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(self.keyboardWillHide(notification:)),
-                                               name: UIResponder.keyboardWillHideNotification,
-                                               object: nil)
-    }
-    
     override func viewDidLayoutSubviews() {
         // setting UI
         let cornerRadius = choosePhotoButton.frame.size.height / 2
@@ -198,14 +185,7 @@ class ProfileViewController: UIViewController {
         profilePhotoImageView.layer.masksToBounds = true
         profilePhotoImageView.layer.cornerRadius = cornerRadius
     }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-    }
-    
+
     
     // MARK: - Overrides
     
@@ -217,30 +197,6 @@ class ProfileViewController: UIViewController {
     
     
     //MARK: - Selector Methods
-    
-    @objc
-    func keyboardWillShow(notification: NSNotification) {
-        if self.view.frame.origin.y == 0,
-            let keyboardFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            
-            let keyboardHeight = keyboardFrame.size.height
-            self.view.frame = CGRect(x: self.view.frame.origin.x,
-                                     y: self.view.frame.origin.y - keyboardHeight,
-                                     width: self.view.frame.width,
-                                     height: self.view.frame.height)
-            self.view.layoutIfNeeded()
-            
-        }
-    }
-            
-    @objc
-    func keyboardWillHide(notification: NSNotification) {
-        self.view.frame = CGRect(x: self.view.frame.origin.x,
-                                 y: 0,
-                                 width: self.view.frame.width,
-                                 height: self.view.frame.height)
-        self.view.layoutIfNeeded()
-    }
     
     @objc
     private func dismissScreen() {
