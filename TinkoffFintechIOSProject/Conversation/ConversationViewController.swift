@@ -160,12 +160,12 @@ extension ConversationViewController: CommunicatorManagerConversationDelegate {
         if user == opponentID {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
-                if self.conversation.chatMessages.count > 0 {
-                    self.tableView.scrollToRow(at: IndexPath(item:self.conversation.chatMessages.count-1,
-                                                             section: 0),
-                                               at: .bottom,
-                                               animated: true)
-                }
+//                if self.conversation.chatMessages.count > 0 {
+//                    self.tableView.scrollToRow(at: IndexPath(item:self.conversation.chatMessages.count-1,
+//                                                             section: 0),
+//                                               at: .bottom,
+//                                               animated: true)
+//                }
             }
         }
     }
