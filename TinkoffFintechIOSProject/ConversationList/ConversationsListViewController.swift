@@ -30,7 +30,6 @@ class ConversationsListViewController: UITableViewController {
         let myDisplayName = ProfileDataHandler.getMyDisplayName()
         CommunicatorManager.deviceVisibleName = myDisplayName
         communicatorManager = CommunicatorManager.standard
-        communicatorManager.conversationsListDelegate = self
         
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 70
@@ -38,7 +37,8 @@ class ConversationsListViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+        communicatorManager.conversationsListDelegate = self
+
         tableView.reloadData()
     }
     
@@ -141,7 +141,22 @@ class ConversationsListViewController: UITableViewController {
 
 
 extension ConversationsListViewController: CommunicatorManagerConversationsListDelegate {
+    func didCatchError(error: Error) {
+        let errorAlert = UIAlertController(
+            title: "Oops.. An error",
+            message: nil,
+            preferredStyle: .alert)
+        
+        errorAlert.addAction(
+            UIAlertAction(
+                title: NSLocalizedString(error.localizedDescription, comment: ""),
+                style: .cancel))
+        
+        self.present(errorAlert, animated: true)
+    }
+    
     func didReloadConversationsList() {
+        communicatorManager.sortMessages()
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }

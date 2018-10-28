@@ -158,6 +158,8 @@ class ProfileViewController: KeyboardInputViewController {
     }
     
     override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
         // setting UI
         let cornerRadius = choosePhotoButton.frame.size.height / 2
         

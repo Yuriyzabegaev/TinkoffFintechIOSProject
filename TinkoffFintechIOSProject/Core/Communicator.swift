@@ -35,12 +35,19 @@ protocol Communicator: class {
 
 
 class MultipeerCommunicator: NSObject {
-
+    
+    //MARK: - Properties
+    
     private(set) var serviceType = "tinkoff-chat"
     private var discoveryInfo: [String: String]
-//    private let myPeerId: MCPeerID
+    
+    /*
+     Using different peerIDs is necessary because of using of different session for each peer. Otherwise MultipeerComunication framework works incorrectly.
+     https://medium.com/@baydet/dark-corners-of-multipeer-connectivity-framework-abd566422920
+    */
     private let myBrowserPeerId: MCPeerID
     private let myAdvertiserPeerId: MCPeerID
+    
     private let defaultTimeout: TimeInterval = 60
     
     private var sessionsForPeer: [MCPeerID:MCSession] = [:]
@@ -64,6 +71,8 @@ class MultipeerCommunicator: NSObject {
         }
     }
     
+    //MARK: - Initialization
+
     init(username: String) {
         
         discoveryInfo = ["userName": username]
@@ -95,6 +104,7 @@ class MultipeerCommunicator: NSObject {
 
 
 extension MultipeerCommunicator: Communicator {
+    
     func sendMessage(string: String, to userId: String, completionHandler: ((Bool, Error?) -> ())?) {
         guard let receiverPeerID = sessionsForPeer.keys.first(where: {peer in
             peer.displayName == userId
@@ -114,7 +124,7 @@ extension MultipeerCommunicator: Communicator {
             let messageData = try message.encoded()
             try session.send(messageData, toPeers: [receiverPeerID], with: .reliable)
         } catch let error {
-            print(error.localizedDescription)
+            let error = MultipeerCommunicatorError.unableToSendMessage(error)
             completionHandler?(false, error)
             return
         }
@@ -124,9 +134,8 @@ extension MultipeerCommunicator: Communicator {
 
 
 extension MultipeerCommunicator: MCSessionDelegate {
+    
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
-        
-        print(session.connectedPeers)
         
         switch state {
         case .connected:
@@ -134,7 +143,6 @@ extension MultipeerCommunicator: MCSessionDelegate {
         case .notConnected:
             print(peerID.displayName + " not connected")
             serviceBrowser.invitePeer(peerID, to: session, withContext: nil, timeout: defaultTimeout)
-//            delegate?.didLostUser(userId: peerID.displayName)
         case .connecting:
             print(peerID.displayName + " connecting")
         }
@@ -153,15 +161,15 @@ extension MultipeerCommunicator: MCSessionDelegate {
     }
     
     func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
-        fatalError(#function + " not implemented")
+        return
     }
     
     func session(_ session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, with progress: Progress) {
-        fatalError(#function + " not implemented")
+        return
     }
     
     func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL?, withError error: Error?) {
-        fatalError(#function + " not implemented")
+        return
     }
     
     
@@ -169,6 +177,7 @@ extension MultipeerCommunicator: MCSessionDelegate {
 
 
 extension MultipeerCommunicator: MCNearbyServiceAdvertiserDelegate {
+    
     func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: Data?, invitationHandler: @escaping (Bool, MCSession?) -> Void) {
         
         if !peerID.displayName.hasPrefix("***browser*** ") {
@@ -176,7 +185,7 @@ extension MultipeerCommunicator: MCNearbyServiceAdvertiserDelegate {
             return
         }
         
-//        // check if peer has a session already established
+        // check if peer has a session already established
         if let oldSession = sessionsForPeer[peerID] {
             invitationHandler(true, oldSession)
             return
@@ -197,6 +206,7 @@ extension MultipeerCommunicator: MCNearbyServiceAdvertiserDelegate {
 
 
 extension MultipeerCommunicator: MCNearbyServiceBrowserDelegate {
+    
     func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String : String]?) {
         
         if peerID.displayName.hasPrefix("***browser***") { return }
@@ -221,6 +231,7 @@ extension MultipeerCommunicator: MCNearbyServiceBrowserDelegate {
     }
     
     func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
+        
         if peerID.displayName == myAdvertiserPeerId.displayName || peerID.displayName == myBrowserPeerId.displayName {
             return
         }
@@ -239,6 +250,7 @@ extension MultipeerCommunicator: MCNearbyServiceBrowserDelegate {
 extension MultipeerCommunicator {
     enum MultipeerCommunicatorError: Error {
         case sessionNotFoundError(String)
+        case unableToSendMessage(Error)
     }
     
     private struct MultipeerCommunicatorMessage: Codable {

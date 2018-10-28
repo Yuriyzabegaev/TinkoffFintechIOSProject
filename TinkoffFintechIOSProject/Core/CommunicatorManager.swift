@@ -8,50 +8,29 @@
 
 import Foundation
 
-struct MessageModel: Hashable {
-    let isIncoming: Bool
-    let text: String
-    let senderId: String
-    let receiverId: String
-    
-    let timestamp = Date()
-    
-    private(set) var isUnread: Bool
-    
-    init(isIncoming: Bool, text: String, senderId: String, receiverId: String) {
-        self.isIncoming = isIncoming
-        self.text = text
-        self.senderId = senderId
-        self.receiverId = receiverId
-        
-        isUnread = true
-    }
-    
-    mutating func readMessage() {
-        isUnread = true
-    }
+
+protocol CommunicatorManagerConversationsListDelegate {
+    func didReloadConversationsList()
+    func didCatchError(error: Error)
 }
 
 
-class ConversationModel {
-    
-    let userId: String
-    var username: String?
-    
-    private(set) var chatMessages: [MessageModel] = []
-    
-    init(userId: String, username: String?) {
-        self.userId = userId
-        self.username = username
-    }
-    
-    func add(message: MessageModel) {
-        chatMessages += [message]
-    }
+protocol CommunicatorManagerConversationDelegate {
+    func didReloadMessages(user: String)
+    func didAbandonConversation(user: String) // called if opponent left conversation
+    func didCatchError(error: Error)
 }
 
 
 class CommunicatorManager {
+    
+    enum MultipeerCommunicatorError: Error {
+        case sessionNotFoundError(String)
+        case unableToSendMessage(Error)
+    }
+    
+    //MARK: - Static Properties
+    
     static var deviceVisibleName: String = UIDevice.current.name {
         didSet {
             if let standard = _standard {
@@ -59,6 +38,8 @@ class CommunicatorManager {
             }
         }
     }
+    
+    // singletone
     static var standard: CommunicatorManager {
         if _standard == nil {
             _standard = CommunicatorManager()
@@ -68,23 +49,30 @@ class CommunicatorManager {
     
     private static var _standard: CommunicatorManager?
     
+    //MARK: - Properties
+    
     private let communicator: Communicator
     private(set) var conversations: [ConversationModel] = []
     
     var conversationsListDelegate: CommunicatorManagerConversationsListDelegate?
     var conversationDelegate: CommunicatorManagerConversationDelegate?
     
+    //MARK: - Initialization
+    
     private init() {
         communicator = MultipeerCommunicator(username: CommunicatorManager.deviceVisibleName)
         communicator.delegate = self
     }
     
+    //MARK: - Public methods
+
     func sendMessage(text: String, to userId: String) {
         
         func completionHandler(success: Bool, error: Error?) {
             if !success,
                 let error = error {
-                print(error.localizedDescription)
+                self.conversationDelegate?.didCatchError(error: error)
+                self.conversationsListDelegate?.didCatchError(error: error)
                 return
             }
             
@@ -101,10 +89,25 @@ class CommunicatorManager {
         
         communicator.sendMessage(string: text, to: userId, completionHandler: completionHandler)
     }
+    
+    func sortMessages() {
+        conversations.sort(by: {left, right in
+            if left.chatMessages.isEmpty || right.chatMessages.isEmpty {
+                if left.chatMessages.isEmpty && right.chatMessages.isEmpty,
+                    let leftUsername = left.username,
+                    let rightUsername = right.username {
+                    return leftUsername < rightUsername
+                }
+                return false
+            }
+            return left.chatMessages.last!.timestamp > right.chatMessages.last!.timestamp
+        })
+    }
 }
 
 
 extension CommunicatorManager: CommunicatorDelegate {
+    
     func didFoundUser(userId: String, userName: String?) {
         if conversations.contains(where: { $0.userId == userId }) {
             return
@@ -125,11 +128,13 @@ extension CommunicatorManager: CommunicatorDelegate {
     }
     
     func failedToStartBrowsingForUsers(error: Error) {
-        print(#function + error.localizedDescription)
+        conversationsListDelegate?.didCatchError(error: error)
+        conversationDelegate?.didCatchError(error: error)
     }
     
     func failedToStartAdvertising(error: Error) {
-        print(#function + error.localizedDescription)
+        conversationsListDelegate?.didCatchError(error: error)
+        conversationDelegate?.didCatchError(error: error)
     }
     
     func didReceiveMessage(text: String, fromUser sender: String, toUser receiver: String) {        
@@ -139,43 +144,13 @@ extension CommunicatorManager: CommunicatorDelegate {
                                       receiverId: receiver)
         guard let conversation = conversations.filter({ conversation in
             conversation.userId == sender
-        }).first else { fatalError("something strange occurred..") }
+        }).first else { return }
         conversation.add(message: newMessage)
         
-        //        TODO: make async
+        // TODO: make async
         
-        conversations.sort(by: {left, right in
-            if left.chatMessages.isEmpty || right.chatMessages.isEmpty {
-                if left.chatMessages.isEmpty && right.chatMessages.isEmpty,
-                    let leftUsername = left.username,
-                    let rightUsername = right.username {
-                    return leftUsername < rightUsername
-                }
-                return false
-            }
-            return left.chatMessages.last!.timestamp < right.chatMessages.last!.timestamp
-        })
-
         conversationDelegate?.didReloadMessages(user: sender)
         conversationsListDelegate?.didReloadConversationsList()
     }
 
-}
-
-
-protocol CommunicatorManagerConversationsListDelegate {
-    func didReloadConversationsList()
-}
-
-protocol CommunicatorManagerConversationDelegate {
-    func didReloadMessages(user: String)
-    func didAbandonConversation(user: String) // called if opponent left conversation
-}
-
-struct NotificationTypes {
-    static let conversationsListDidReloadData = Notification.Name("ConversationsListDidReloadData")
-    static let conversationListDidSortData = Notification.Name("ConversationsListDidSortData")
-    
-    static let conversationDidTurnSendOff = Notification.Name("ConversationDidTurnSendOff")
-    static let conversationDidReloadData = Notification.Name("ConversationDidReloadData")
 }

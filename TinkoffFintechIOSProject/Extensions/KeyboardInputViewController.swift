@@ -42,7 +42,6 @@ class KeyboardInputViewController: UIViewController {
                                      width: self.view.frame.width,
                                      height: self.view.frame.height)
             self.view.layoutIfNeeded()
-            
         }
     }
     

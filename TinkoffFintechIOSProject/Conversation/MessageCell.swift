@@ -11,6 +11,7 @@ import UIKit
 
 protocol MessageCellConfiguration : class {
     var messageText: String? {get set}
+    var timeStamp: Date? {get set}
 }
 
 
@@ -23,9 +24,22 @@ class MessageCell: UITableViewCell, MessageCellConfiguration {
         }
     }
     
+    var timeStamp: Date? {
+        didSet {
+            guard let timeStamp = timeStamp else {
+                timeLabel.text = nil
+                return
+            }
+            let formatter = DateFormatter()
+            formatter.dateFormat = "HH:mm"
+            timeLabel.text = formatter.string(from: timeStamp)
+        }
+    }
+    
     
     //MARK: - Outlets
     
+    @IBOutlet var timeLabel: UILabel!
     @IBOutlet private var messageLabel: UILabel!
     @IBOutlet private var containerView: UIView!
     
