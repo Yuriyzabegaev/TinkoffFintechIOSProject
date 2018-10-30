@@ -10,30 +10,6 @@ import Foundation
 import MultipeerConnectivity
 
 
-protocol CommunicatorDelegate: class {
-    // discovering
-    func didFoundUser(userId: String, userName: String?)
-    func didLostUser(userId: String)
-    
-    // errors
-    func failedToStartBrowsingForUsers(error: Error)
-    func failedToStartAdvertising(error: Error)
-    
-    // messages
-    func didReceiveMessage(text: String, fromUser: String, toUser: String)
-}
-
-
-protocol Communicator: class {
-    func sendMessage(string: String, to userId: String, completionHandler: ((_ success: Bool, _ error: Error?) -> ())?)
-    var delegate: CommunicatorDelegate? {get set}
-    var online: Bool {get set}
-    
-    var myUserID: String {get}
-    var visibleUserName: String {get set}
-}
-
-
 class MultipeerCommunicator: NSObject {
     
     //MARK: - Properties

@@ -68,7 +68,7 @@ class ConversationViewController: KeyboardInputViewController {
                 
         let myDisplayName = ProfileDataHandler.getMyDisplayName()
         CommunicatorManager.deviceVisibleName = myDisplayName
-        communicatorManager = CommunicatorManager.standard
+        communicatorManager = CommunicatorManager.shared
         communicatorManager.conversationDelegate = self
         
         conversation = communicatorManager.conversations.first(where: { conversation in

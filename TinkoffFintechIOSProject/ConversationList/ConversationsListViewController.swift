@@ -29,7 +29,7 @@ class ConversationsListViewController: UITableViewController {
         
         let myDisplayName = ProfileDataHandler.getMyDisplayName()
         CommunicatorManager.deviceVisibleName = myDisplayName
-        communicatorManager = CommunicatorManager.standard
+        communicatorManager = CommunicatorManager.shared
         
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 70

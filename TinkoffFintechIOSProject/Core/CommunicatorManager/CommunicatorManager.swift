@@ -9,19 +9,6 @@
 import Foundation
 
 
-protocol CommunicatorManagerConversationsListDelegate {
-    func didReloadConversationsList()
-    func didCatchError(error: Error)
-}
-
-
-protocol CommunicatorManagerConversationDelegate {
-    func didReloadMessages(user: String)
-    func didAbandonConversation(user: String) // called if opponent left conversation
-    func didCatchError(error: Error)
-}
-
-
 class CommunicatorManager {
     
     enum MultipeerCommunicatorError: Error {
@@ -33,21 +20,12 @@ class CommunicatorManager {
     
     static var deviceVisibleName: String = UIDevice.current.name {
         didSet {
-            if let standard = _standard {
-                standard.communicator.visibleUserName = CommunicatorManager.deviceVisibleName
-            }
+            shared.communicator.visibleUserName = CommunicatorManager.deviceVisibleName
         }
     }
     
-    // singletone
-    static var standard: CommunicatorManager {
-        if _standard == nil {
-            _standard = CommunicatorManager()
-        }
-        return CommunicatorManager._standard!
-    }
-    
-    private static var _standard: CommunicatorManager?
+    // singleton
+    static private(set) var shared = CommunicatorManager()
     
     //MARK: - Properties
     
