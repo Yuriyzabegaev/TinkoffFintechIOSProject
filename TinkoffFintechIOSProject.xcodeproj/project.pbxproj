@@ -28,6 +28,7 @@
 		0B70545F217223E1009AAA4B /* ThemesSwiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFBED4221712D2C0062757F /* ThemesSwiftViewController.swift */; };
 		0B79E39E2167BE9600A7BFD8 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B79E39D2167BE9600A7BFD8 /* MessageCell.swift */; };
 		0B7DD1F92183BAF600E16934 /* CommunicatorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7DD1F82183BAF600E16934 /* CommunicatorManager.swift */; };
+		0B7F25392189BB1A00079927 /* Storage.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0B7F25372189BB1A00079927 /* Storage.xcdatamodeld */; };
 		0B841C5621862FB700B51907 /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B841C5521862FB700B51907 /* MessageModel.swift */; };
 		0B841C5821862FCD00B51907 /* ConversationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B841C5721862FCD00B51907 /* ConversationModel.swift */; };
 		0BDA3C312154401D0065E627 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDA3C302154401D0065E627 /* AppDelegate.swift */; };
@@ -61,6 +62,7 @@
 		0B70545A21721FA1009AAA4B /* TinkoffFintechIOSProject-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TinkoffFintechIOSProject-Bridging-Header.h"; sourceTree = "<group>"; };
 		0B79E39D2167BE9600A7BFD8 /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		0B7DD1F82183BAF600E16934 /* CommunicatorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicatorManager.swift; sourceTree = "<group>"; };
+		0B7F25382189BB1A00079927 /* Storage.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Storage.xcdatamodel; sourceTree = "<group>"; };
 		0B841C5521862FB700B51907 /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
 		0B841C5721862FCD00B51907 /* ConversationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationModel.swift; sourceTree = "<group>"; };
 		0BDA3C2D2154401D0065E627 /* TinkoffFintechIOSProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinkoffFintechIOSProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -157,6 +159,7 @@
 				0BDA3C302154401D0065E627 /* AppDelegate.swift */,
 				0BDA3C37215440200065E627 /* Assets.xcassets */,
 				0BDA3C342154401D0065E627 /* Main.storyboard */,
+				0B7F25372189BB1A00079927 /* Storage.xcdatamodeld */,
 				0BDA3C39215440200065E627 /* LaunchScreen.storyboard */,
 				0BDA3C3C215440200065E627 /* Info.plist */,
 				0BE6E60E21737EAA004093D1 /* Profile */,
@@ -293,6 +296,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0B1F8BA02181108C006E7E2C /* Communicator.swift in Sources */,
+				0B7F25392189BB1A00079927 /* Storage.xcdatamodeld in Sources */,
 				0BDA3C332154401D0065E627 /* ProfileViewController.swift in Sources */,
 				0B276A24217CBCF70093D1BA /* SaveProfileDataOperation.swift in Sources */,
 				0B53DCFD21654454003585F0 /* ConversationsListViewController.swift in Sources */,
@@ -524,6 +528,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		0B7F25372189BB1A00079927 /* Storage.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				0B7F25382189BB1A00079927 /* Storage.xcdatamodel */,
+			);
+			currentVersion = 0B7F25382189BB1A00079927 /* Storage.xcdatamodel */;
+			path = Storage.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 0BDA3C252154401D0065E627 /* Project object */;
 }

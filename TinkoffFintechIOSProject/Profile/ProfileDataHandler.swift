@@ -44,6 +44,9 @@ class ProfileDataHandler {
     // MARK: - Public methods
     
     func save(profileData: ProfileData) -> Bool {
+        
+//        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         if profileData.nameIsChanged,
             let name = profileData.name {
             defaults.set(name, forKey: ProfileDataHandler.nameKey)

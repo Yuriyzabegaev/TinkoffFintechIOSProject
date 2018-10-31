@@ -9,7 +9,7 @@
 import Foundation
 
 
-protocol CommunicatorManagerConversationDelegate {
+protocol CommunicatorManagerConversationDelegate: class {
     func didReloadMessages(user: String)
     func didAbandonConversation(user: String) // called if opponent left conversation
     func didCatchError(error: Error)

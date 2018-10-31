@@ -31,7 +31,7 @@ class MultipeerCommunicator: NSObject {
     private let serviceAdvertiser : MCNearbyServiceAdvertiser
     private let serviceBrowser : MCNearbyServiceBrowser
     
-    var delegate: CommunicatorDelegate?
+    weak var delegate: CommunicatorDelegate?
     var online: Bool = true
     
     var myUserID: String {

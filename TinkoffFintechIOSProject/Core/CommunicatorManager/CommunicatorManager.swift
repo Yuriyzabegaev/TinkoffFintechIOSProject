@@ -32,8 +32,8 @@ class CommunicatorManager {
     private let communicator: Communicator
     private(set) var conversations: [ConversationModel] = []
     
-    var conversationsListDelegate: CommunicatorManagerConversationsListDelegate?
-    var conversationDelegate: CommunicatorManagerConversationDelegate?
+    weak var conversationsListDelegate: CommunicatorManagerConversationsListDelegate?
+    weak var conversationDelegate: CommunicatorManagerConversationDelegate?
     
     //MARK: - Initialization
     
