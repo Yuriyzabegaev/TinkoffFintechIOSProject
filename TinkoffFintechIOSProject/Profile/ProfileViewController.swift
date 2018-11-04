@@ -17,8 +17,7 @@ class ProfileViewController: KeyboardInputViewController {
     @IBOutlet var choosePhotoButton: UIButton!
     @IBOutlet var nameTextField: UITextField!
     @IBOutlet var bioTextField: UITextField!
-    @IBOutlet var saveViaGCDButton: UIButton!
-    @IBOutlet var saveViaOperationButton: UIButton!
+    @IBOutlet var saveButton: UIButton!
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var bioLabel: UILabel!
@@ -27,13 +26,11 @@ class ProfileViewController: KeyboardInputViewController {
     
     private(set) var isEditingContent: Bool = false {
         didSet {
-            areSaveButtonsEnabled = false
+            isSaveButtonEnabled = false
             
             editButton.isHidden = isEditingContent
             
-            saveViaOperationButton.isHidden = !isEditingContent
-            
-            saveViaGCDButton.isHidden = !isEditingContent
+            saveButton.isHidden = !isEditingContent
             
             choosePhotoButton.isHidden = !isEditingContent
             
@@ -49,11 +46,10 @@ class ProfileViewController: KeyboardInputViewController {
         }
     }
     
-    private var areSaveButtonsEnabled: Bool {
+    private var isSaveButtonEnabled: Bool {
         get { return profileData.isModified }
         set(newValue) {
-            saveViaGCDButton.isEnabled = newValue
-            saveViaOperationButton.isEnabled = newValue
+            saveButton.isEnabled = newValue
         }
     }
     
@@ -67,19 +63,13 @@ class ProfileViewController: KeyboardInputViewController {
         }
     }
 
-    private let gcdProfileDataManager = GCDProfileDataManager()
-    private let operationProfileDataManager = OperationProfileDataManager()
+    private let profileDataManager: ProfileDataManager = (UIApplication.shared.delegate as! AppDelegate).coreDataManager
 
     
     // MARK: - Actions
-    @IBAction func saveViaGCDButtonTapped(_ sender: UIButton) {
+    @IBAction func saveButtonTapped(_ sender: UIButton) {
         handleTextFieldsNewData()
-        saveProfileData(via: gcdProfileDataManager)
-    }
-    
-    @IBAction func saveViaOperationButtonTapped(_ sender: UIButton) {
-        handleTextFieldsNewData()
-        saveProfileData(via: operationProfileDataManager)
+        saveProfileData(via: profileDataManager)
     }
     
     @IBAction func editButtonTapped(_ sender: Any) {
@@ -143,11 +133,7 @@ class ProfileViewController: KeyboardInputViewController {
         nameTextField.delegate = self
         bioTextField.delegate = self
         
-        if 1.arc4random == 0 { // randomly choose to use Operation of GCD to restore data
-            restoreProfileData(via: gcdProfileDataManager)
-        } else {
-            restoreProfileData(via: operationProfileDataManager)
-        }
+        restoreProfileData(via: profileDataManager)
     
         activityIndicator.hidesWhenStopped = true
         
@@ -176,13 +162,9 @@ class ProfileViewController: KeyboardInputViewController {
         editButton.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         editButton.layer.borderWidth = 1.0
         
-        saveViaGCDButton.layer.cornerRadius = cornerRadius / 5
-        saveViaGCDButton.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        saveViaGCDButton.layer.borderWidth = 1.0
-        
-        saveViaOperationButton.layer.cornerRadius = cornerRadius / 5
-        saveViaOperationButton.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        saveViaOperationButton.layer.borderWidth = 1.0
+        saveButton.layer.cornerRadius = cornerRadius / 5
+        saveButton.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        saveButton.layer.borderWidth = 1.0
         
         profilePhotoImageView.layer.masksToBounds = true
         profilePhotoImageView.layer.cornerRadius = cornerRadius
@@ -210,8 +192,7 @@ class ProfileViewController: KeyboardInputViewController {
 
     private func saveProfileData(via manager: ProfileDataManager) {
         self.activityIndicator.startAnimating()
-        self.saveViaGCDButton.isUserInteractionEnabled = false
-        self.saveViaOperationButton.isUserInteractionEnabled = false
+        self.saveButton.isUserInteractionEnabled = false
 
         manager.save(profileData: self.profileData) { [weak self] isSucceeded in
             if self != nil {
@@ -219,8 +200,7 @@ class ProfileViewController: KeyboardInputViewController {
                 
                 self?.isEditingContent = false
                 
-                self?.saveViaGCDButton.isUserInteractionEnabled = true
-                self?.saveViaOperationButton.isUserInteractionEnabled = true
+                self?.saveButton.isUserInteractionEnabled = true
                 
                 if isSucceeded {
                     self?.sendSuccessSaveAlert()
@@ -306,7 +286,7 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
             profilePhotoImageView.image = image
             dismiss(animated:true, completion: nil)
             
-            areSaveButtonsEnabled = true
+            isSaveButtonEnabled = true
         }
     }
     
@@ -340,7 +320,7 @@ extension ProfileViewController: UITextFieldDelegate {
                 return
             }
             
-            areSaveButtonsEnabled = true
+            isSaveButtonEnabled = true
         }
         
         // handling bio field
@@ -348,7 +328,7 @@ extension ProfileViewController: UITextFieldDelegate {
         if profileData.bio != bioTextField.text {
             profileData.bio = bioTextField.text
             
-            areSaveButtonsEnabled = true
+            isSaveButtonEnabled = true
         }
         
         self.view.endEditing(true)

@@ -20,6 +20,8 @@
 		0B276A20217CBB8F0093D1BA /* OperationProfileDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B276A1F217CBB8F0093D1BA /* OperationProfileDataManager.swift */; };
 		0B276A24217CBCF70093D1BA /* SaveProfileDataOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B276A23217CBCF70093D1BA /* SaveProfileDataOperation.swift */; };
 		0B276A28217CC6DE0093D1BA /* LoadProfileDataOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B276A27217CC6DE0093D1BA /* LoadProfileDataOperation.swift */; };
+		0B3B74CA218A1D2C008A1674 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3B74C9218A1D2C008A1674 /* CoreDataStack.swift */; };
+		0B3B74CC218A20A8008A1674 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3B74CB218A20A8008A1674 /* CoreDataManager.swift */; };
 		0B47055C21679D8A002A10C7 /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B47055B21679D8A002A10C7 /* ConversationViewController.swift */; };
 		0B4F9C0C216F283E006D284B /* Themes.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B4F9C0B216F283E006D284B /* Themes.m */; };
 		0B53DCFD21654454003585F0 /* ConversationsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B53DCFC21654454003585F0 /* ConversationsListViewController.swift */; };
@@ -31,6 +33,7 @@
 		0B7F25392189BB1A00079927 /* Storage.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0B7F25372189BB1A00079927 /* Storage.xcdatamodeld */; };
 		0B841C5621862FB700B51907 /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B841C5521862FB700B51907 /* MessageModel.swift */; };
 		0B841C5821862FCD00B51907 /* ConversationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B841C5721862FCD00B51907 /* ConversationModel.swift */; };
+		0BA4A4A3218FA903003A5B8E /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA4A4A2218FA903003A5B8E /* Profile.swift */; };
 		0BDA3C312154401D0065E627 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDA3C302154401D0065E627 /* AppDelegate.swift */; };
 		0BDA3C332154401D0065E627 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDA3C322154401D0065E627 /* ProfileViewController.swift */; };
 		0BDA3C362154401D0065E627 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BDA3C342154401D0065E627 /* Main.storyboard */; };
@@ -53,6 +56,8 @@
 		0B276A1F217CBB8F0093D1BA /* OperationProfileDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationProfileDataManager.swift; sourceTree = "<group>"; };
 		0B276A23217CBCF70093D1BA /* SaveProfileDataOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveProfileDataOperation.swift; sourceTree = "<group>"; };
 		0B276A27217CC6DE0093D1BA /* LoadProfileDataOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadProfileDataOperation.swift; sourceTree = "<group>"; };
+		0B3B74C9218A1D2C008A1674 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		0B3B74CB218A20A8008A1674 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		0B47055B21679D8A002A10C7 /* ConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
 		0B4F9C0A216F2817006D284B /* Themes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Themes.h; sourceTree = "<group>"; };
 		0B4F9C0B216F283E006D284B /* Themes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Themes.m; sourceTree = "<group>"; };
@@ -65,6 +70,7 @@
 		0B7F25382189BB1A00079927 /* Storage.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Storage.xcdatamodel; sourceTree = "<group>"; };
 		0B841C5521862FB700B51907 /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
 		0B841C5721862FCD00B51907 /* ConversationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationModel.swift; sourceTree = "<group>"; };
+		0BA4A4A2218FA903003A5B8E /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		0BDA3C2D2154401D0065E627 /* TinkoffFintechIOSProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinkoffFintechIOSProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BDA3C302154401D0065E627 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0BDA3C322154401D0065E627 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -136,6 +142,25 @@
 			path = Core;
 			sourceTree = "<group>";
 		};
+		0BA4A4A0218FA7CA003A5B8E /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				0BA4A4A1218FA8EB003A5B8E /* Models Extensions */,
+				0B7F25372189BB1A00079927 /* Storage.xcdatamodeld */,
+				0B3B74C9218A1D2C008A1674 /* CoreDataStack.swift */,
+				0B3B74CB218A20A8008A1674 /* CoreDataManager.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		0BA4A4A1218FA8EB003A5B8E /* Models Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				0BA4A4A2218FA903003A5B8E /* Profile.swift */,
+			);
+			path = "Models Extensions";
+			sourceTree = "<group>";
+		};
 		0BDA3C242154401D0065E627 = {
 			isa = PBXGroup;
 			children = (
@@ -159,7 +184,6 @@
 				0BDA3C302154401D0065E627 /* AppDelegate.swift */,
 				0BDA3C37215440200065E627 /* Assets.xcassets */,
 				0BDA3C342154401D0065E627 /* Main.storyboard */,
-				0B7F25372189BB1A00079927 /* Storage.xcdatamodeld */,
 				0BDA3C39215440200065E627 /* LaunchScreen.storyboard */,
 				0BDA3C3C215440200065E627 /* Info.plist */,
 				0BE6E60E21737EAA004093D1 /* Profile */,
@@ -167,6 +191,7 @@
 				0BE6E60C21737E77004093D1 /* ConversationList */,
 				0BE6E60921737DBD004093D1 /* Themes */,
 				0B841C5921864C9800B51907 /* Core */,
+				0BA4A4A0218FA7CA003A5B8E /* CoreData */,
 				0BE6E60F21737EC4004093D1 /* Extensions */,
 			);
 			path = TinkoffFintechIOSProject;
@@ -296,12 +321,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				0B1F8BA02181108C006E7E2C /* Communicator.swift in Sources */,
+				0BA4A4A3218FA903003A5B8E /* Profile.swift in Sources */,
 				0B7F25392189BB1A00079927 /* Storage.xcdatamodeld in Sources */,
 				0BDA3C332154401D0065E627 /* ProfileViewController.swift in Sources */,
 				0B276A24217CBCF70093D1BA /* SaveProfileDataOperation.swift in Sources */,
 				0B53DCFD21654454003585F0 /* ConversationsListViewController.swift in Sources */,
 				0B22C3022188676300754792 /* СommunicatorProtocol.swift in Sources */,
 				0B841C5821862FCD00B51907 /* ConversationModel.swift in Sources */,
+				0B3B74CA218A1D2C008A1674 /* CoreDataStack.swift in Sources */,
 				0B64C6582184CC88005F8336 /* KeyboardInputViewController.swift in Sources */,
 				0B70545F217223E1009AAA4B /* ThemesSwiftViewController.swift in Sources */,
 				0B22C30B2188683400754792 /* CommunicatorManagerConversationsListDelegateProtocol.swift in Sources */,
@@ -319,6 +346,7 @@
 				0B276A28217CC6DE0093D1BA /* LoadProfileDataOperation.swift in Sources */,
 				0B841C5621862FB700B51907 /* MessageModel.swift in Sources */,
 				0B7DD1F92183BAF600E16934 /* CommunicatorManager.swift in Sources */,
+				0B3B74CC218A20A8008A1674 /* CoreDataManager.swift in Sources */,
 				0B4F9C0C216F283E006D284B /* Themes.m in Sources */,
 				0BDA3C312154401D0065E627 /* AppDelegate.swift in Sources */,
 				0B276A18217C87710093D1BA /* ProfileData.swift in Sources */,

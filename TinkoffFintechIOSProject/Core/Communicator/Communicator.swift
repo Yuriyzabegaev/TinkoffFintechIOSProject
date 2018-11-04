@@ -17,12 +17,7 @@ class MultipeerCommunicator: NSObject {
     private(set) var serviceType = "tinkoff-chat"
     private var discoveryInfo: [String: String]
     
-    /*
-     Using different peerIDs is necessary because of using of different session for each peer. Otherwise MultipeerComunication framework works incorrectly.
-     https://medium.com/@baydet/dark-corners-of-multipeer-connectivity-framework-abd566422920
-    */
-    private let myBrowserPeerId: MCPeerID
-    private let myAdvertiserPeerId: MCPeerID
+    private let myPeerId: MCPeerID
     
     private let defaultTimeout: TimeInterval = 60
     
@@ -35,7 +30,7 @@ class MultipeerCommunicator: NSObject {
     var online: Bool = true
     
     var myUserID: String {
-        return myAdvertiserPeerId.displayName
+        return myPeerId.displayName
     }
     
     var visibleUserName: String {
@@ -52,11 +47,10 @@ class MultipeerCommunicator: NSObject {
     init(username: String) {
         
         discoveryInfo = ["userName": username]
-        myAdvertiserPeerId = MCPeerID(displayName: UIDevice.current.name)
-        myBrowserPeerId = MCPeerID(displayName: "***browser*** " + UIDevice.current.name)
+        myPeerId = MCPeerID(displayName: UIDevice.current.name)
         
-        serviceAdvertiser = MCNearbyServiceAdvertiser(peer: myAdvertiserPeerId, discoveryInfo: discoveryInfo, serviceType: serviceType)
-        serviceBrowser = MCNearbyServiceBrowser(peer: myBrowserPeerId, serviceType: serviceType)
+        serviceAdvertiser = MCNearbyServiceAdvertiser(peer: myPeerId, discoveryInfo: discoveryInfo, serviceType: serviceType)
+        serviceBrowser = MCNearbyServiceBrowser(peer: myPeerId, serviceType: serviceType)
         
         super.init()
 
@@ -126,13 +120,10 @@ extension MultipeerCommunicator: MCSessionDelegate {
     
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
         if let message = try? MultipeerCommunicatorMessage(jsonData: data) {
-            var sender = peerID.displayName
-            if sender.hasPrefix("***browser*** ") {
-                sender = String(sender.dropFirst("***browser*** ".count))
-            }
+            let sender = peerID.displayName
             delegate?.didReceiveMessage(text: message.text,
                                         fromUser: sender,
-                                        toUser: myAdvertiserPeerId.displayName)
+                                        toUser: myPeerId.displayName)
         }
     }
     
@@ -156,18 +147,13 @@ extension MultipeerCommunicator: MCNearbyServiceAdvertiserDelegate {
     
     func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: Data?, invitationHandler: @escaping (Bool, MCSession?) -> Void) {
         
-        if !peerID.displayName.hasPrefix("***browser*** ") {
-            invitationHandler(false, nil)
-            return
-        }
-        
         // check if peer has a session already established
         if let oldSession = sessionsForPeer[peerID] {
             invitationHandler(true, oldSession)
             return
         }
         
-        let newSession = MCSession(peer: myAdvertiserPeerId, securityIdentity: nil, encryptionPreference: .none)
+        let newSession = MCSession(peer: myPeerId, securityIdentity: nil, encryptionPreference: .none)
         newSession.delegate = self
         sessionsForPeer[peerID] = newSession
         
@@ -185,9 +171,7 @@ extension MultipeerCommunicator: MCNearbyServiceBrowserDelegate {
     
     func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String : String]?) {
         
-        if peerID.displayName.hasPrefix("***browser***") { return }
-        
-        if peerID.displayName == myAdvertiserPeerId.displayName || peerID.displayName == myBrowserPeerId.displayName {
+        if peerID.displayName == myPeerId.displayName {
             return
         }
         
@@ -199,7 +183,7 @@ extension MultipeerCommunicator: MCNearbyServiceBrowserDelegate {
         }
         
         // make an invite
-        let newSession = MCSession(peer: myBrowserPeerId, securityIdentity: nil, encryptionPreference: .none)
+        let newSession = MCSession(peer: myPeerId, securityIdentity: nil, encryptionPreference: .none)
         newSession.delegate = self
         browser.invitePeer(peerID, to: newSession, withContext: nil, timeout: defaultTimeout)
         
@@ -208,7 +192,7 @@ extension MultipeerCommunicator: MCNearbyServiceBrowserDelegate {
     
     func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
         
-        if peerID.displayName == myAdvertiserPeerId.displayName || peerID.displayName == myBrowserPeerId.displayName {
+        if peerID.displayName == myPeerId.displayName {
             return
         }
         if sessionsForPeer.removeValue(forKey: peerID) != nil {
