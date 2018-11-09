@@ -8,22 +8,20 @@
 
 import Foundation
 
-
 class SaveProfileDataOperation: Operation {
-    
+
     var isSucceeded: Bool?
-    
+
     let profileData: ProfileData
-    let completion: ((Bool) -> ())?
-    
+    let completion: ((Bool) -> Void)?
+
     let dataHandler = ProfileDataHandler()
-    
-    
-    init(profileData: ProfileData, completion: ((Bool) -> ())? ) {
+
+    init(profileData: ProfileData, completion: ((Bool) -> Void)? ) {
         self.profileData = profileData
         self.completion = completion
     }
-    
+
     override func main() {
         let isSucceeded = dataHandler.save(profileData: profileData)
         self.isSucceeded = isSucceeded

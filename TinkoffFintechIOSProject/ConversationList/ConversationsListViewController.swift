@@ -9,64 +9,63 @@
 import UIKit
 
 class ConversationsListViewController: UITableViewController {
-    
+
     struct SegueIdentifier {
         static let toConversation = "toConversation"
         static let toProfile = "toProfile"
         static let toThemes = "toThemes"
     }
-    
-    
+
     // MARK: - Properties
-    
+
     // initialized in viewDidLoad
     var communicatorManager: CommunicatorManager!
-    
+
     // MARK: - Lifecycle
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         let myDisplayName = ProfileDataHandler.getMyDisplayName()
         CommunicatorManager.deviceVisibleName = myDisplayName
         communicatorManager = CommunicatorManager.shared
-        
+
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 70
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         communicatorManager.conversationsListDelegate = self
 
         tableView.reloadData()
     }
-    
+
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         communicatorManager.conversationsListDelegate = nil
     }
-    
-    
+
     // MARK: - Navigation
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
-        
+
         switch segue.identifier {
         case SegueIdentifier.toConversation:
-            
+
             if let cell = sender as? ConversationCellConfiguration,
                 let conversationViewController = segue.destination as? ConversationViewController {
                 conversationViewController.configureData(with: cell)
             }
-            
+
         case SegueIdentifier.toThemes:
-            
+
             if let navigationController = segue.destination as? UINavigationController {
-                    
-                guard let themesSwiftViewController = navigationController.viewControllers.first as? ThemesSwiftViewController else { return }
-                
+
+                guard let themesSwiftViewController = navigationController.viewControllers
+					.first as? ThemesSwiftViewController else { return }
+
                 themesSwiftViewController.themePickerHandler = { [weak self] newTheme in
                     self?.considerThemeChanging(selectedTheme: newTheme)
                 }
@@ -75,16 +74,15 @@ class ConversationsListViewController: UITableViewController {
         default:
             return
         }
-        
+
     }
-    
-    
+
     // MARK: - TableViewDataSource and TableViewDelegate
-    
+
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
-    
+
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0: // Online
@@ -95,7 +93,7 @@ class ConversationsListViewController: UITableViewController {
             return 0
         }
     }
-    
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ConversationListCell", for: indexPath) as! ConversationCell
         switch indexPath.section {
@@ -113,10 +111,9 @@ class ConversationsListViewController: UITableViewController {
             fatalError()
         }
 
-        
         return cell
     }
-    
+
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
@@ -127,18 +124,15 @@ class ConversationsListViewController: UITableViewController {
             return nil
         }
     }
-    
-    
-    
+
     private func considerThemeChanging(selectedTheme: UIColor) {
         DispatchQueue.global(qos: .background).async {
             UserDefaults.standard.setTheme(theme: selectedTheme, forKey: "Theme")
         }
         UINavigationBar.appearance().barTintColor = selectedTheme
     }
-    
-}
 
+}
 
 extension ConversationsListViewController: CommunicatorManagerConversationsListDelegate {
     func didCatchError(error: Error) {
@@ -146,15 +140,15 @@ extension ConversationsListViewController: CommunicatorManagerConversationsListD
             title: "Oops.. An error",
             message: nil,
             preferredStyle: .alert)
-        
+
         errorAlert.addAction(
             UIAlertAction(
                 title: NSLocalizedString(error.localizedDescription, comment: ""),
                 style: .cancel))
-        
+
         self.present(errorAlert, animated: true)
     }
-    
+
     func didReloadConversationsList() {
         communicatorManager.sortMessages()
         DispatchQueue.main.async {

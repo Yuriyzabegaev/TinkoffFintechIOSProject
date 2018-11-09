@@ -80,6 +80,8 @@
 		0BDA3C3C215440200065E627 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0BDA3C422154441D0065E627 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		0BFBED4221712D2C0062757F /* ThemesSwiftViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemesSwiftViewController.swift; sourceTree = "<group>"; };
+		54E4DE4208252F86ECABFCDF /* Pods-TinkoffFintechIOSProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TinkoffFintechIOSProject.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TinkoffFintechIOSProject/Pods-TinkoffFintechIOSProject.debug.xcconfig"; sourceTree = "<group>"; };
+		59D083ED3E8D65B1F37266BD /* Pods-TinkoffFintechIOSProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TinkoffFintechIOSProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-TinkoffFintechIOSProject/Pods-TinkoffFintechIOSProject.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +168,8 @@
 			children = (
 				0BDA3C2F2154401D0065E627 /* TinkoffFintechIOSProject */,
 				0BDA3C2E2154401D0065E627 /* Products */,
+				B240CFB461C071BB43337066 /* Pods */,
+				92EBF0A7E02CFB19F4D73CAC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -248,6 +252,22 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		92EBF0A7E02CFB19F4D73CAC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B240CFB461C071BB43337066 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				54E4DE4208252F86ECABFCDF /* Pods-TinkoffFintechIOSProject.debug.xcconfig */,
+				59D083ED3E8D65B1F37266BD /* Pods-TinkoffFintechIOSProject.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -255,9 +275,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0BDA3C3F215440200065E627 /* Build configuration list for PBXNativeTarget "TinkoffFintechIOSProject" */;
 			buildPhases = (
+				E2DFC3574C91419F082CF1C6 /* [CP] Check Pods Manifest.lock */,
+				0BDA3C2B2154401D0065E627 /* Resources */,
 				0BDA3C292154401D0065E627 /* Sources */,
 				0BDA3C2A2154401D0065E627 /* Frameworks */,
-				0BDA3C2B2154401D0065E627 /* Resources */,
+				0BD014552193486C00A5F3EE /* Swift Lint */,
 			);
 			buildRules = (
 			);
@@ -314,6 +336,41 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0BD014552193486C00A5F3EE /* Swift Lint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Swift Lint";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n\n";
+		};
+		E2DFC3574C91419F082CF1C6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TinkoffFintechIOSProject-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		0BDA3C292154401D0065E627 /* Sources */ = {
@@ -493,6 +550,7 @@
 		};
 		0BDA3C40215440200065E627 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 54E4DE4208252F86ECABFCDF /* Pods-TinkoffFintechIOSProject.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -515,6 +573,7 @@
 		};
 		0BDA3C41215440200065E627 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 59D083ED3E8D65B1F37266BD /* Pods-TinkoffFintechIOSProject.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

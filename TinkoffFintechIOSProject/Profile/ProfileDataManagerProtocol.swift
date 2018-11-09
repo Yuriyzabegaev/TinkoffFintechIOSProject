@@ -8,8 +8,7 @@
 
 import Foundation
 
-
 protocol ProfileDataManager {
-    func save(profileData: ProfileData, completion: ((Bool) -> ())? )
-    func loadProfileData(completion: ((ProfileData) -> ())? )
+    func save(profileData: ProfileData, completion: ((Bool) -> Void)? )
+    func loadProfileData(completion: ((ProfileData) -> Void)? )
 }

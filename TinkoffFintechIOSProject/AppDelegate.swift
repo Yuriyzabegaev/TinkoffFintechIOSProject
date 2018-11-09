@@ -12,17 +12,18 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    
+
     let coreDataManager: CoreDataManager = CoreDataManager()
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
-        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor : UIColor.lightGray]
-        
+    func application(_ application: UIApplication,
+					 didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+
+        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.lightGray]
+
         if let theme = UserDefaults.standard.getTheme(forKey: "Theme") {
             UINavigationBar.appearance().barTintColor = theme
         }
-        
+
         return true
     }
 
@@ -49,6 +50,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             coreDataManager.coreDataStack.performSave(context: saveContext)
         }
     }
-    
-}
 
+}

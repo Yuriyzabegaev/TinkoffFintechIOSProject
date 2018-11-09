@@ -8,12 +8,12 @@
 
 import Foundation
 
-
 protocol Communicator: class {
-    func sendMessage(string: String, to userId: String, completionHandler: ((_ success: Bool, _ error: Error?) -> ())?)
+    func sendMessage(string: String, to userId: String, completionHandler: ((_ success: Bool, _ error: Error?) ->
+		Void)?)
     var delegate: CommunicatorDelegate? {get set}
     var online: Bool {get set}
-    
+
     var myUserID: String {get}
     var visibleUserName: String {get set}
 }

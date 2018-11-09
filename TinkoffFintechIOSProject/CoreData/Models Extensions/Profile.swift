@@ -9,9 +9,8 @@
 import Foundation
 import CoreData
 
-
 extension Profile {
-    
+
     @discardableResult
     static func insertOrUpdateProfile(in context: NSManagedObjectContext,
                                       name: String?,
@@ -20,18 +19,17 @@ extension Profile {
         let profiles = getProfilesList(in: context)
         assert(profiles.count <= 1, "Now not more than profile can be in database")
         let profile = profiles.first ?? NSEntityDescription.insertNewObject(forEntityName: "Profile", into: context) as! Profile
-        
+
         profile.name = name
         profile.bio = bio
         profile.image = image
-        
+
         return profile
     }
-    
-    
+
     static func getProfilesList(in context: NSManagedObjectContext) -> [Profile] {
         let templateName = "GetAllProfiles"
-        
+
         guard let model = context.persistentStoreCoordinator?.managedObjectModel else {
             print(#function + " no managed Object Model!")
             return []

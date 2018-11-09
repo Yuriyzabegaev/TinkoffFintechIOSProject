@@ -8,19 +8,18 @@
 
 import Foundation
 
-
 class ConversationModel {
-    
+
     let userId: String
     var username: String?
-    
+
     private(set) var chatMessages: [MessageModel] = []
-    
+
     init(userId: String, username: String?) {
         self.userId = userId
         self.username = username
     }
-    
+
     func add(message: MessageModel) {
         chatMessages += [message]
     }

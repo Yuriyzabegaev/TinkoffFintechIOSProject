@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 protocol CommunicatorManagerConversationsListDelegate: class {
     func didReloadConversationsList()
     func didCatchError(error: Error)

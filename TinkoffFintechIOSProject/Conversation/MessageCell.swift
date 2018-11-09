@@ -8,22 +8,20 @@
 
 import UIKit
 
-
-protocol MessageCellConfiguration : class {
+protocol MessageCellConfiguration: class {
     var messageText: String? {get set}
     var timeStamp: Date? {get set}
 }
 
-
 class MessageCell: UITableViewCell, MessageCellConfiguration {
-    
-    //MARK: - Properties
+
+    // MARK: - Properties
     var messageText: String? {
         didSet {
             messageLabel.text = messageText
         }
     }
-    
+
     var timeStamp: Date? {
         didSet {
             guard let timeStamp = timeStamp else {
@@ -35,20 +33,18 @@ class MessageCell: UITableViewCell, MessageCellConfiguration {
             timeLabel.text = formatter.string(from: timeStamp)
         }
     }
-    
-    
-    //MARK: - Outlets
-    
+
+    // MARK: - Outlets
+
     @IBOutlet var timeLabel: UILabel!
     @IBOutlet private var messageLabel: UILabel!
     @IBOutlet private var containerView: UIView!
-    
-    
-    //MARK: - Lifecycle
-    
+
+    // MARK: - Lifecycle
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+
         containerView.layer.cornerRadius = 16
     }
 

@@ -8,19 +8,18 @@
 
 import Foundation
 
-
 class LoadProfileDataOperation: Operation {
-    
+
     var profileData: ProfileData!
 
-    let completion: ((ProfileData) -> ())?
-        
+    let completion: ((ProfileData) -> Void)?
+
     let dataHandler = ProfileDataHandler()
-        
-    init(completion: ((ProfileData) -> ())?) {
+
+    init(completion: ((ProfileData) -> Void)?) {
         self.completion = completion
     }
-    
+
     override func main() {
         profileData = dataHandler.loadProfileData()
         completion?(profileData)

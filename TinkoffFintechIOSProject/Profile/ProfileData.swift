@@ -8,9 +8,8 @@
 
 import Foundation
 
-
 class ProfileData {
-    
+
     var name: String? {
         didSet {
             nameIsChanged = true
@@ -26,15 +25,15 @@ class ProfileData {
             imageIsChanged = true
         }
     }
-    
+
     var isModified: Bool {
         return nameIsChanged || bioIsChanged || imageIsChanged
     }
-    
+
     private(set) var nameIsChanged: Bool = false
     private(set) var bioIsChanged: Bool = false
     private(set) var imageIsChanged: Bool = false
-    
+
     init(name: String?, bio: String?, image: UIImage?) {
         self.name = name
         self.bio = bio

@@ -8,44 +8,43 @@
 
 import Foundation
 
-
 class CommunicatorManager {
-    
+
     enum MultipeerCommunicatorError: Error {
         case sessionNotFoundError(String)
         case unableToSendMessage(Error)
     }
-    
-    //MARK: - Static Properties
-    
+
+    // MARK: - Static Properties
+
     static var deviceVisibleName: String = UIDevice.current.name {
         didSet {
             shared.communicator.visibleUserName = CommunicatorManager.deviceVisibleName
         }
     }
-    
+
     // singleton
     static private(set) var shared = CommunicatorManager()
-    
-    //MARK: - Properties
-    
+
+    // MARK: - Properties
+
     private let communicator: Communicator
     private(set) var conversations: [ConversationModel] = []
-    
+
     weak var conversationsListDelegate: CommunicatorManagerConversationsListDelegate?
     weak var conversationDelegate: CommunicatorManagerConversationDelegate?
-    
-    //MARK: - Initialization
-    
+
+    // MARK: - Initialization
+
     private init() {
         communicator = MultipeerCommunicator(username: CommunicatorManager.deviceVisibleName)
         communicator.delegate = self
     }
-    
-    //MARK: - Public methods
+
+    // MARK: - Public methods
 
     func sendMessage(text: String, to userId: String) {
-        
+
         func completionHandler(success: Bool, error: Error?) {
             if !success,
                 let error = error {
@@ -53,21 +52,21 @@ class CommunicatorManager {
                 self.conversationsListDelegate?.didCatchError(error: error)
                 return
             }
-            
+
             guard let conversation = self.conversations.first(where: { conversation in
                 conversation.userId == userId
             }) else { return }
-            
+
             conversation.add(message: MessageModel(isIncoming: false,
                                                    text: text,
                                                    senderId: communicator.myUserID,
                                                    receiverId: userId))
             self.conversationDelegate?.didReloadMessages(user: userId)
         }
-        
+
         communicator.sendMessage(string: text, to: userId, completionHandler: completionHandler)
     }
-    
+
     func sortMessages() {
         conversations.sort(by: {left, right in
             if left.chatMessages.isEmpty || right.chatMessages.isEmpty {
@@ -83,9 +82,8 @@ class CommunicatorManager {
     }
 }
 
-
 extension CommunicatorManager: CommunicatorDelegate {
-    
+
     func didFoundUser(userId: String, userName: String?) {
         if conversations.contains(where: { $0.userId == userId }) {
             return
@@ -93,7 +91,7 @@ extension CommunicatorManager: CommunicatorDelegate {
         conversations += [ConversationModel(userId: userId, username: userName)]
         conversationsListDelegate?.didReloadConversationsList()
     }
-    
+
     func didLostUser(userId: String) {
         let indexToRemove = conversations.firstIndex { conversation in
             conversation.userId == userId
@@ -104,18 +102,18 @@ extension CommunicatorManager: CommunicatorDelegate {
             conversationsListDelegate?.didReloadConversationsList()
         }
     }
-    
+
     func failedToStartBrowsingForUsers(error: Error) {
         conversationsListDelegate?.didCatchError(error: error)
         conversationDelegate?.didCatchError(error: error)
     }
-    
+
     func failedToStartAdvertising(error: Error) {
         conversationsListDelegate?.didCatchError(error: error)
         conversationDelegate?.didCatchError(error: error)
     }
-    
-    func didReceiveMessage(text: String, fromUser sender: String, toUser receiver: String) {        
+
+    func didReceiveMessage(text: String, fromUser sender: String, toUser receiver: String) {
         let newMessage = MessageModel(isIncoming: true,
                                       text: text,
                                       senderId: sender,
@@ -124,9 +122,9 @@ extension CommunicatorManager: CommunicatorDelegate {
             conversation.userId == sender
         }).first else { return }
         conversation.add(message: newMessage)
-        
+
         // TODO: make async
-        
+
         conversationDelegate?.didReloadMessages(user: sender)
         conversationsListDelegate?.didReloadConversationsList()
     }

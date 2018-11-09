@@ -9,23 +9,22 @@
 import Foundation
 import UIKit
 
-
 class Logger {
-    
-    //MARK: - Properties
-    
+
+    // MARK: - Properties
+
     static var isLogging = true
     let name: String
     private var previousState: UIApplication.State = UIApplication.shared.applicationState
-    
-    //MARK: - Initialization
-    
+
+    // MARK: - Initialization
+
     init(name: String) {
         self.name = name
     }
-    
-    //MARK: - Public Methods
-    
+
+    // MARK: - Public Methods
+
     func logCurrentMethod(named methodName: String, withMessage message: String? = nil) {
         if Logger.isLogging {
             if let message = message {
@@ -35,9 +34,8 @@ class Logger {
             }
         }
     }
-    
-}
 
+}
 
 extension UIApplication.State {
     var stringRepresentation: String {

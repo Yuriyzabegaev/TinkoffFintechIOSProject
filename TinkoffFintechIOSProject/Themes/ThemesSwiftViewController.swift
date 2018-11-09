@@ -10,39 +10,37 @@ import UIKit
 
 class ThemesSwiftViewController: UIViewController {
 
-    //MARK: - Properties
-            
-    var themePickerHandler: ((UIColor)->())?
+    // MARK: - Properties
+
+    var themePickerHandler: ((UIColor) -> Void)?
     let model = Themes()
-    
-    //MARK: - Actions
-    
+
+    // MARK: - Actions
+
     @IBAction func themePicked(_ sender: UIButton) {
         let newTheme = model.getTheme(sender.tag) ?? UIColor.white
         changeThemeTo(newTheme: newTheme)
-        
+
     }
     @IBAction func dismissScreen(_ sender: UIButton) {
         dismiss(animated: true)
     }
-    
-    
-    //MARK: - Lifecycle
+
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         if let theme = UserDefaults.standard.getTheme(forKey: "Theme") {
             view.backgroundColor = theme
-            self.navigationController?.navigationBar.barTintColor = theme;
+            self.navigationController?.navigationBar.barTintColor = theme
         }
     }
-    
-    
-    //MARK: - Private methods
-    
+
+    // MARK: - Private methods
+
     private func changeThemeTo(newTheme: UIColor) {
         self.view.backgroundColor = newTheme
-        self.navigationController?.navigationBar.barTintColor = newTheme;
+        self.navigationController?.navigationBar.barTintColor = newTheme
         themePickerHandler?(newTheme)
     }
 }

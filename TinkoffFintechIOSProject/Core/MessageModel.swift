@@ -8,26 +8,25 @@
 
 import Foundation
 
-
 class MessageModel {
     let isIncoming: Bool
     let text: String
     let senderId: String
     let receiverId: String
-    
+
     let timestamp = Date()
-    
+
     private(set) var isUnread: Bool
-    
+
     init(isIncoming: Bool, text: String, senderId: String, receiverId: String) {
         self.isIncoming = isIncoming
         self.text = text
         self.senderId = senderId
         self.receiverId = receiverId
-        
+
         isUnread = true
     }
-    
+
     func readMessage() {
         isUnread = false
     }

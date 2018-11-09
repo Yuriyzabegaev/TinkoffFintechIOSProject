@@ -8,23 +8,21 @@
 
 import UIKit
 
-
 protocol ConversationCellConfiguration: class {
     var userID: String {get set}
-    
-    var name : String? {get set}
-    var message : String? {get set}
-    var date : Date? {get set}
-    var online : Bool {get set}
-    var hasUnreadMessage : Bool {get set}
+
+    var name: String? {get set}
+    var message: String? {get set}
+    var date: Date? {get set}
+    var online: Bool {get set}
+    var hasUnreadMessage: Bool {get set}
 }
 
-
 class ConversationCell: UITableViewCell, ConversationCellConfiguration {
-    
-    //MARK: - properties
+
+    // MARK: - properties
     var userID: String = ""
-    
+
     var name: String? {
         didSet {
             if name == nil {
@@ -36,7 +34,7 @@ class ConversationCell: UITableViewCell, ConversationCellConfiguration {
     }
     var message: String? {
         didSet {
-            if let lastMessageText = message  {
+            if let lastMessageText = message {
                 lastMessageLabel.font = UIFont.systemFont(ofSize: UIFont.systemFontSize)
                 lastMessageLabel.text = lastMessageText
             } else {
@@ -77,25 +75,23 @@ class ConversationCell: UITableViewCell, ConversationCellConfiguration {
             }
         }
     }
-    
-    
-    //MARK: - Outlets
-    
+
+    // MARK: - Outlets
+
     @IBOutlet private var nameLabel: UILabel!
     @IBOutlet private var lastMessageLabel: UILabel!
     @IBOutlet private var timestampLabel: UILabel!
-    
-    
-    //MARK: - Lifecycle
+
+    // MARK: - Lifecycle
 
     override func awakeFromNib() {
         super.awakeFromNib()
         nameLabel.font = UIFont.boldSystemFont(ofSize: UIFont.systemFontSize)
-        
+
         let backgroundView = UIView()
         backgroundView.backgroundColor = #colorLiteral(red: 0.968627451, green: 0.968627451, blue: 0.968627451, alpha: 1)
         selectedBackgroundView = backgroundView
-        
+
         lastMessageLabel!.textColor = UIColor.darkGray
     }
 

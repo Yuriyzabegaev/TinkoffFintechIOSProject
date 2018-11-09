@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 protocol CommunicatorManagerConversationDelegate: class {
     func didReloadMessages(user: String)
     func didAbandonConversation(user: String) // called if opponent left conversation
