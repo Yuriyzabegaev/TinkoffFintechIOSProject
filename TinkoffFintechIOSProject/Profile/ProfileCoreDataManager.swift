@@ -18,22 +18,27 @@ class ProfileCoreDataManager: ProfileDataManager {
 
 	func save(profileData: ProfileData, completion: ((Bool) -> Void)?) {
 		guard let saveContext = CoreDataManager.shared.coreDataStack.saveContext else { return }
-		User.update(in: saveContext,
-					userID: myUserID,
-					name: profileData.name,
-					bio: profileData.bio,
-					image: profileData.image?.jpegData(compressionQuality: 1))
-		completion?(true)
+		saveContext.perform {
+			User.update(in: saveContext,
+						userID: self.myUserID,
+						name: profileData.name,
+						bio: profileData.bio,
+						image: profileData.image?.jpegData(compressionQuality: 1))
+			completion?(true)
+		}
 	}
 
 	func loadProfileData(completion: ((ProfileData) -> Void)?) {
-		guard let profileData = User.withID(userID: myUserID) else {
-			completion?(ProfileData(name: nil, bio: nil, image: nil))
-			return
+		guard let mainContext = CoreDataManager.shared.coreDataStack.mainContext else { return }
+		mainContext.perform {
+			guard let profileData = User.withID(userID: self.myUserID) else {
+				completion?(ProfileData(name: nil, bio: nil, image: nil))
+				return
+			}
+			let image = (profileData.image != nil) ?  UIImage(data: profileData.image!) : nil
+			completion?(ProfileData(name: profileData.name,
+									bio: profileData.bio,
+									image: image))
 		}
-		let image = (profileData.image != nil) ?  UIImage(data: profileData.image!) : nil
-		completion?(ProfileData(name: profileData.name,
-								bio: profileData.bio,
-								image: image))
 	}
 }

@@ -194,11 +194,11 @@ class ProfileViewController: KeyboardInputViewController {
 
         manager.save(profileData: self.profileData) { [weak self] isSucceeded in
             if self != nil {
-                self?.activityIndicator.stopAnimating()
-
-                self?.isEditingContent = false
-
-                self?.saveButton.isUserInteractionEnabled = true
+				DispatchQueue.main.async {
+					self?.activityIndicator.stopAnimating()
+					self?.isEditingContent = false
+					self?.saveButton.isUserInteractionEnabled = true
+				}
 
                 if isSucceeded {
                     self?.sendSuccessSaveAlert()
@@ -215,7 +215,9 @@ class ProfileViewController: KeyboardInputViewController {
 
         manager.loadProfileData { [weak self] profileData in
             if self != nil {
-                self?.activityIndicator.stopAnimating()
+				DispatchQueue.main.async {
+					self?.activityIndicator.stopAnimating()
+				}
 
                 self?.profileData = profileData
             }
