@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class ConversationViewController: KeyboardInputViewController {
 
@@ -20,10 +21,13 @@ class ConversationViewController: KeyboardInputViewController {
     // configured in configureData(with:)
     var opponentID: String!
     var opponentDisplayName: String?
+	var opponentIsOnline: Bool!
 
     // configured in viewDidLoad()
     var communicatorManager: CommunicatorManager!
-    var conversation: ConversationModel!
+	var fetchedResultsController: NSFetchedResultsController<Message>!
+
+	let frcManager = FRCManager()
 
     @IBOutlet var tableView: UITableView!
     @IBOutlet var sendButton: UIButton!
@@ -41,6 +45,7 @@ class ConversationViewController: KeyboardInputViewController {
     // MARK: - Called from segue
 
     func configureData(with cell: ConversationCellConfiguration) {
+		opponentIsOnline = cell.online
         opponentID = cell.userID
         opponentDisplayName = cell.name ?? "Unknown person"
 
@@ -66,18 +71,32 @@ class ConversationViewController: KeyboardInputViewController {
         inputTextView.layer.borderWidth = 0.5
 
         let myDisplayName = ProfileDataHandler.getMyDisplayName()
-        CommunicatorManager.deviceVisibleName = myDisplayName
+        CommunicatorManager.visibleName = myDisplayName
         communicatorManager = CommunicatorManager.shared
-        communicatorManager.conversationDelegate = self
+        communicatorManager.delegate = self
 
-        conversation = communicatorManager.conversations.first(where: { conversation in
-            conversation.userId == opponentID
-        })
+		let fetchRequest: NSFetchRequest<Message> = CoreDataManager.shared.fetchRequest(type: .messagesFromConversationWithID(opponentID))
+
+		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "timeStamp", ascending: false)]
+
+		fetchedResultsController = CoreDataManager.shared.setupFRC(fetchRequest,
+																   frcManager: frcManager)
+		frcManager.controllingTableView = tableView
 
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 70
 
         tableView.separatorStyle = .none
+
+		do {
+			try fetchedResultsController.performFetch()
+		} catch {
+			print(error.localizedDescription)
+		}
+
+		if !opponentIsOnline {
+			disableSendButton()
+		}
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -88,43 +107,63 @@ class ConversationViewController: KeyboardInputViewController {
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        communicatorManager.conversationDelegate = nil
+        communicatorManager.delegate = nil
     }
+
+	private func disableSendButton() {
+		sendButton.isEnabled = false
+		sendButton.alpha = 0.4
+	}
 
 }
 
 extension ConversationViewController: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
+	func numberOfSections(in tableView: UITableView) -> Int {
+		return fetchedResultsController?.sections?.count ?? 0
+	}
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return conversation?.chatMessages.count ?? 0
-    }
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		guard let sections = fetchedResultsController?.sections else {
+			return 0
+		}
+
+		return sections[section].numberOfObjects
+	}
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let endIndex = conversation?.chatMessages.endIndex,
-            let lastIndex = conversation?.chatMessages.index(before: endIndex),
-            let message = conversation?.chatMessages[lastIndex - indexPath.item] {
-            message.readMessage()
-            let identifier = message.isIncoming ? CellIdentifiers.incoming : CellIdentifiers.outgoing
+		let message = fetchedResultsController.object(at: indexPath)
+		if message.isUnread != false {
+			message.isUnread = false
+		}
+		let identifier = message.isIncoming ? CellIdentifiers.incoming : CellIdentifiers.outgoing
 
-            let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! MessageCell
-            cell.messageText = message.text
-            cell.timeStamp = message.timestamp
-            cell.contentView.transform = CGAffineTransform(scaleX: 1, y: -1)
-            return cell
-        }
-
-        let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifiers.outgoing, for: indexPath) as! MessageCell
-        cell.messageText = nil
-        return cell
+		let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! MessageCell
+		cell.messageText = message.text
+		cell.timeStamp = message.timeStamp
+		cell.contentView.transform = CGAffineTransform(scaleX: 1, y: -1)
+		return cell
     }
+
 }
 
-extension ConversationViewController: UITableViewDelegate { }
+extension ConversationViewController: UITableViewDelegate {
+	func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
 
-extension ConversationViewController: CommunicatorManagerConversationDelegate {
+		if editingStyle == .delete {
+			let message: Message = fetchedResultsController.object(at: indexPath)
+			CoreDataManager.shared.delete(message)
+			CoreDataManager.shared.save()
+		}
+
+	}
+
+	func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+		return "-"
+	}
+
+}
+
+extension ConversationViewController: CommunicatorManagerDelegate {
     func didCatchError(error: Error) {
         let errorAlert = UIAlertController(
             title: "Oops.. An error",
@@ -136,8 +175,6 @@ extension ConversationViewController: CommunicatorManagerConversationDelegate {
                 title: NSLocalizedString("Cancel", comment: ""),
                 style: .cancel,
                 handler: { _ in
-                    //                    if let navigation = self.navigationController {
-                    //                        navigation.popViewController(animated: true)
                     self.disableSendButton()
             }))
 
@@ -152,29 +189,8 @@ extension ConversationViewController: CommunicatorManagerConversationDelegate {
         }
     }
 
-    func didReloadMessages(user: String) {
-        if user == opponentID {
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-//                if self.conversation.chatMessages.count > 0 {
-//                    self.tableView.scrollToRow(at: IndexPath(item:self.conversation.chatMessages.count-1,
-//                                                             section: 0),
-//                                               at: .bottom,
-//                                               animated: true)
-//                }
-            }
-        }
-    }
-
-    func didAbandonConversation(user: String) {
-        if user == opponentID {
-            disableSendButton()
-        }
-    }
-
-    private func disableSendButton() {
-        sendButton.isEnabled = false
-        sendButton.alpha = 0.4
-    }
+	func didUpdateData() {
+		tableView.reloadData()
+	}
 
 }

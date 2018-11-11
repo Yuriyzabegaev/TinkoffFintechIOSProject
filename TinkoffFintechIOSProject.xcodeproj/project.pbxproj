@@ -7,12 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B07E9C6219718CC0099C059 /* FRCManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B07E9C5219718CC0099C059 /* FRCManager.swift */; };
 		0B1B77B5217358F500C3DECC /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1B77B4217358F500C3DECC /* Extensions.swift */; };
 		0B1F8BA02181108C006E7E2C /* Communicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1F8B9F2181108C006E7E2C /* Communicator.swift */; };
 		0B22C3022188676300754792 /* СommunicatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B22C3012188676300754792 /* СommunicatorProtocol.swift */; };
 		0B22C3042188677B00754792 /* CommunicatorDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B22C3032188677B00754792 /* CommunicatorDelegateProtocol.swift */; };
-		0B22C3092188681700754792 /* CommunicatorManagerConversationDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B22C3082188681700754792 /* CommunicatorManagerConversationDelegateProtocol.swift */; };
 		0B22C30B2188683400754792 /* CommunicatorManagerConversationsListDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B22C30A2188683400754792 /* CommunicatorManagerConversationsListDelegateProtocol.swift */; };
+		0B240B222198960C00946808 /* ProfileCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B240B212198960C00946808 /* ProfileCoreDataManager.swift */; };
 		0B276A18217C87710093D1BA /* ProfileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B276A17217C87710093D1BA /* ProfileData.swift */; };
 		0B276A1A217C88010093D1BA /* ProfileDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B276A19217C88010093D1BA /* ProfileDataHandler.swift */; };
 		0B276A1C217C92120093D1BA /* GCDProfileDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B276A1B217C92120093D1BA /* GCDProfileDataManager.swift */; };
@@ -28,12 +29,12 @@
 		0B53DCFF2165532E003585F0 /* ConversationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B53DCFE2165532E003585F0 /* ConversationCell.swift */; };
 		0B64C6582184CC88005F8336 /* KeyboardInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B64C6572184CC88005F8336 /* KeyboardInputViewController.swift */; };
 		0B70545F217223E1009AAA4B /* ThemesSwiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFBED4221712D2C0062757F /* ThemesSwiftViewController.swift */; };
+		0B72D5D12196343D00F4BAC7 /* Conversation+fetches.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B72D5D02196343D00F4BAC7 /* Conversation+fetches.swift */; };
 		0B79E39E2167BE9600A7BFD8 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B79E39D2167BE9600A7BFD8 /* MessageCell.swift */; };
 		0B7DD1F92183BAF600E16934 /* CommunicatorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7DD1F82183BAF600E16934 /* CommunicatorManager.swift */; };
 		0B7F25392189BB1A00079927 /* Storage.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0B7F25372189BB1A00079927 /* Storage.xcdatamodeld */; };
-		0B841C5621862FB700B51907 /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B841C5521862FB700B51907 /* MessageModel.swift */; };
-		0B841C5821862FCD00B51907 /* ConversationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B841C5721862FCD00B51907 /* ConversationModel.swift */; };
-		0BA4A4A3218FA903003A5B8E /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA4A4A2218FA903003A5B8E /* Profile.swift */; };
+		0B869EB02196ED6600003793 /* Message+fetches.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B869EAF2196ED6600003793 /* Message+fetches.swift */; };
+		0B869EB22196EFD900003793 /* User+fetches.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B869EB12196EFD900003793 /* User+fetches.swift */; };
 		0BDA3C312154401D0065E627 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDA3C302154401D0065E627 /* AppDelegate.swift */; };
 		0BDA3C332154401D0065E627 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDA3C322154401D0065E627 /* ProfileViewController.swift */; };
 		0BDA3C362154401D0065E627 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BDA3C342154401D0065E627 /* Main.storyboard */; };
@@ -43,12 +44,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0B07E9C5219718CC0099C059 /* FRCManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FRCManager.swift; sourceTree = "<group>"; };
 		0B1B77B4217358F500C3DECC /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		0B1F8B9F2181108C006E7E2C /* Communicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Communicator.swift; sourceTree = "<group>"; };
 		0B22C3012188676300754792 /* СommunicatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "СommunicatorProtocol.swift"; sourceTree = "<group>"; };
 		0B22C3032188677B00754792 /* CommunicatorDelegateProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicatorDelegateProtocol.swift; sourceTree = "<group>"; };
-		0B22C3082188681700754792 /* CommunicatorManagerConversationDelegateProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicatorManagerConversationDelegateProtocol.swift; sourceTree = "<group>"; };
 		0B22C30A2188683400754792 /* CommunicatorManagerConversationsListDelegateProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicatorManagerConversationsListDelegateProtocol.swift; sourceTree = "<group>"; };
+		0B240B212198960C00946808 /* ProfileCoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoreDataManager.swift; sourceTree = "<group>"; };
 		0B276A17217C87710093D1BA /* ProfileData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileData.swift; sourceTree = "<group>"; };
 		0B276A19217C88010093D1BA /* ProfileDataHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDataHandler.swift; sourceTree = "<group>"; };
 		0B276A1B217C92120093D1BA /* GCDProfileDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCDProfileDataManager.swift; sourceTree = "<group>"; };
@@ -65,12 +67,12 @@
 		0B53DCFE2165532E003585F0 /* ConversationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationCell.swift; sourceTree = "<group>"; };
 		0B64C6572184CC88005F8336 /* KeyboardInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardInputViewController.swift; sourceTree = "<group>"; };
 		0B70545A21721FA1009AAA4B /* TinkoffFintechIOSProject-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TinkoffFintechIOSProject-Bridging-Header.h"; sourceTree = "<group>"; };
+		0B72D5D02196343D00F4BAC7 /* Conversation+fetches.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Conversation+fetches.swift"; sourceTree = "<group>"; };
 		0B79E39D2167BE9600A7BFD8 /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		0B7DD1F82183BAF600E16934 /* CommunicatorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicatorManager.swift; sourceTree = "<group>"; };
 		0B7F25382189BB1A00079927 /* Storage.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Storage.xcdatamodel; sourceTree = "<group>"; };
-		0B841C5521862FB700B51907 /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
-		0B841C5721862FCD00B51907 /* ConversationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationModel.swift; sourceTree = "<group>"; };
-		0BA4A4A2218FA903003A5B8E /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		0B869EAF2196ED6600003793 /* Message+fetches.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Message+fetches.swift"; sourceTree = "<group>"; };
+		0B869EB12196EFD900003793 /* User+fetches.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+fetches.swift"; sourceTree = "<group>"; };
 		0BDA3C2D2154401D0065E627 /* TinkoffFintechIOSProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinkoffFintechIOSProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BDA3C302154401D0065E627 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0BDA3C322154401D0065E627 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -109,7 +111,6 @@
 			isa = PBXGroup;
 			children = (
 				0B7DD1F82183BAF600E16934 /* CommunicatorManager.swift */,
-				0B22C3082188681700754792 /* CommunicatorManagerConversationDelegateProtocol.swift */,
 				0B22C30A2188683400754792 /* CommunicatorManagerConversationsListDelegateProtocol.swift */,
 			);
 			path = CommunicatorManager;
@@ -133,15 +134,13 @@
 			path = Operation;
 			sourceTree = "<group>";
 		};
-		0B841C5921864C9800B51907 /* Core */ = {
+		0B841C5921864C9800B51907 /* Communicator */ = {
 			isa = PBXGroup;
 			children = (
-				0B841C5521862FB700B51907 /* MessageModel.swift */,
-				0B841C5721862FCD00B51907 /* ConversationModel.swift */,
 				0B22C306218867EA00754792 /* CommunicatorManager */,
 				0B22C305218867A200754792 /* Communicator */,
 			);
-			path = Core;
+			path = Communicator;
 			sourceTree = "<group>";
 		};
 		0BA4A4A0218FA7CA003A5B8E /* CoreData */ = {
@@ -151,6 +150,7 @@
 				0B7F25372189BB1A00079927 /* Storage.xcdatamodeld */,
 				0B3B74C9218A1D2C008A1674 /* CoreDataStack.swift */,
 				0B3B74CB218A20A8008A1674 /* CoreDataManager.swift */,
+				0B07E9C5219718CC0099C059 /* FRCManager.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -158,7 +158,9 @@
 		0BA4A4A1218FA8EB003A5B8E /* Models Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				0BA4A4A2218FA903003A5B8E /* Profile.swift */,
+				0B72D5D02196343D00F4BAC7 /* Conversation+fetches.swift */,
+				0B869EAF2196ED6600003793 /* Message+fetches.swift */,
+				0B869EB12196EFD900003793 /* User+fetches.swift */,
 			);
 			path = "Models Extensions";
 			sourceTree = "<group>";
@@ -194,7 +196,7 @@
 				0BE6E60D21737E8E004093D1 /* Conversation */,
 				0BE6E60C21737E77004093D1 /* ConversationList */,
 				0BE6E60921737DBD004093D1 /* Themes */,
-				0B841C5921864C9800B51907 /* Core */,
+				0B841C5921864C9800B51907 /* Communicator */,
 				0BA4A4A0218FA7CA003A5B8E /* CoreData */,
 				0BE6E60F21737EC4004093D1 /* Extensions */,
 			);
@@ -238,6 +240,7 @@
 				0B276A17217C87710093D1BA /* ProfileData.swift */,
 				0B276A19217C88010093D1BA /* ProfileDataHandler.swift */,
 				0B276A1D217C922A0093D1BA /* ProfileDataManagerProtocol.swift */,
+				0B240B212198960C00946808 /* ProfileCoreDataManager.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -350,7 +353,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n\n";
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint autocorrect\"\n\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
 		};
 		E2DFC3574C91419F082CF1C6 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -378,34 +381,35 @@
 			buildActionMask = 2147483647;
 			files = (
 				0B1F8BA02181108C006E7E2C /* Communicator.swift in Sources */,
-				0BA4A4A3218FA903003A5B8E /* Profile.swift in Sources */,
+				0B869EB02196ED6600003793 /* Message+fetches.swift in Sources */,
 				0B7F25392189BB1A00079927 /* Storage.xcdatamodeld in Sources */,
 				0BDA3C332154401D0065E627 /* ProfileViewController.swift in Sources */,
 				0B276A24217CBCF70093D1BA /* SaveProfileDataOperation.swift in Sources */,
+				0B869EB22196EFD900003793 /* User+fetches.swift in Sources */,
 				0B53DCFD21654454003585F0 /* ConversationsListViewController.swift in Sources */,
 				0B22C3022188676300754792 /* СommunicatorProtocol.swift in Sources */,
-				0B841C5821862FCD00B51907 /* ConversationModel.swift in Sources */,
 				0B3B74CA218A1D2C008A1674 /* CoreDataStack.swift in Sources */,
 				0B64C6582184CC88005F8336 /* KeyboardInputViewController.swift in Sources */,
 				0B70545F217223E1009AAA4B /* ThemesSwiftViewController.swift in Sources */,
 				0B22C30B2188683400754792 /* CommunicatorManagerConversationsListDelegateProtocol.swift in Sources */,
 				0B47055C21679D8A002A10C7 /* ConversationViewController.swift in Sources */,
 				0B276A1C217C92120093D1BA /* GCDProfileDataManager.swift in Sources */,
+				0B72D5D12196343D00F4BAC7 /* Conversation+fetches.swift in Sources */,
 				0B53DCFF2165532E003585F0 /* ConversationCell.swift in Sources */,
+				0B240B222198960C00946808 /* ProfileCoreDataManager.swift in Sources */,
 				0B79E39E2167BE9600A7BFD8 /* MessageCell.swift in Sources */,
 				0B1B77B5217358F500C3DECC /* Extensions.swift in Sources */,
 				0BDA3C432154441D0065E627 /* Logger.swift in Sources */,
 				0B276A20217CBB8F0093D1BA /* OperationProfileDataManager.swift in Sources */,
 				0B22C3042188677B00754792 /* CommunicatorDelegateProtocol.swift in Sources */,
 				0B276A1E217C922A0093D1BA /* ProfileDataManagerProtocol.swift in Sources */,
-				0B22C3092188681700754792 /* CommunicatorManagerConversationDelegateProtocol.swift in Sources */,
 				0B276A1A217C88010093D1BA /* ProfileDataHandler.swift in Sources */,
 				0B276A28217CC6DE0093D1BA /* LoadProfileDataOperation.swift in Sources */,
-				0B841C5621862FB700B51907 /* MessageModel.swift in Sources */,
 				0B7DD1F92183BAF600E16934 /* CommunicatorManager.swift in Sources */,
 				0B3B74CC218A20A8008A1674 /* CoreDataManager.swift in Sources */,
 				0B4F9C0C216F283E006D284B /* Themes.m in Sources */,
 				0BDA3C312154401D0065E627 /* AppDelegate.swift in Sources */,
+				0B07E9C6219718CC0099C059 /* FRCManager.swift in Sources */,
 				0B276A18217C87710093D1BA /* ProfileData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -625,6 +629,7 @@
 			currentVersion = 0B7F25382189BB1A00079927 /* Storage.xcdatamodel */;
 			path = Storage.xcdatamodeld;
 			sourceTree = "<group>";
+			usesTabs = 1;
 			versionGroupType = wrapper.xcdatamodel;
 		};
 /* End XCVersionGroup section */

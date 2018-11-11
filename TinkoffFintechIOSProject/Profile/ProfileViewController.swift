@@ -63,9 +63,10 @@ class ProfileViewController: KeyboardInputViewController {
         }
     }
 
-    private let profileDataManager: ProfileDataManager = (UIApplication.shared.delegate as! AppDelegate).coreDataManager
+	private var profileDataManager: ProfileDataManager!
 
     // MARK: - Actions
+
     @IBAction func saveButtonTapped(_ sender: UIButton) {
         handleTextFieldsNewData()
         saveProfileData(via: profileDataManager)
@@ -125,6 +126,8 @@ class ProfileViewController: KeyboardInputViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+		self.profileDataManager = ProfileCoreDataManager(myUserID: CommunicatorManager.shared.myUserID)
 
         isEditingContent = false
 

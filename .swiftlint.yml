@@ -3,3 +3,4 @@ disabled_rules: # rule identifiers to exclude from running
   - vertical_parameter_alignment
   - line_length
   - force_cast
+  - nesting

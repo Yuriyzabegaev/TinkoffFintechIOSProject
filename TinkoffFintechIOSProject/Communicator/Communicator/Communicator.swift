@@ -46,7 +46,7 @@ class MultipeerCommunicator: NSObject {
     init(username: String) {
 
         discoveryInfo = ["userName": username]
-        myPeerId = MCPeerID(displayName: UIDevice.current.name)
+        myPeerId = MCPeerID(displayName: UIDevice.current.identifierForVendor!.uuidString)
 
         serviceAdvertiser = MCNearbyServiceAdvertiser(peer: myPeerId, discoveryInfo: discoveryInfo, serviceType: serviceType)
         serviceBrowser = MCNearbyServiceBrowser(peer: myPeerId, serviceType: serviceType)

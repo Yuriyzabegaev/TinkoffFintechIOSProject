@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class ConversationsListViewController: UITableViewController {
 
@@ -20,6 +21,9 @@ class ConversationsListViewController: UITableViewController {
 
     // initialized in viewDidLoad
     var communicatorManager: CommunicatorManager!
+	var fetchedResultsController: NSFetchedResultsController<Conversation>!
+
+	let frcManager = FRCManager()
 
     // MARK: - Lifecycle
 
@@ -27,23 +31,41 @@ class ConversationsListViewController: UITableViewController {
         super.viewDidLoad()
 
         let myDisplayName = ProfileDataHandler.getMyDisplayName()
-        CommunicatorManager.deviceVisibleName = myDisplayName
+        CommunicatorManager.visibleName = myDisplayName
         communicatorManager = CommunicatorManager.shared
 
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 70
+
+		let onlineFetchRequest: NSFetchRequest<Conversation> = Conversation.fetchRequest()
+
+		onlineFetchRequest.sortDescriptors = [
+			NSSortDescriptor(key: "opponent.isOnline", ascending: false),
+			NSSortDescriptor(key: "lastMessage.timeStamp", ascending: false)
+		]
+
+		fetchedResultsController = CoreDataManager.shared.setupFRC(onlineFetchRequest,
+																   frcManager: frcManager)
+
+		frcManager.controllingTableView = tableView
+
+		do {
+			try fetchedResultsController.performFetch()
+		} catch {
+			print(error.localizedDescription)
+		}
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        communicatorManager.conversationsListDelegate = self
+        communicatorManager.delegate = self
 
         tableView.reloadData()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        communicatorManager.conversationsListDelegate = nil
+        communicatorManager.delegate = nil
     }
 
     // MARK: - Navigation
@@ -77,64 +99,64 @@ class ConversationsListViewController: UITableViewController {
 
     }
 
+	private func considerThemeChanging(selectedTheme: UIColor) {
+		DispatchQueue.global(qos: .background).async {
+			UserDefaults.standard.setTheme(theme: selectedTheme, forKey: "Theme")
+		}
+		UINavigationBar.appearance().barTintColor = selectedTheme
+	}
+
     // MARK: - TableViewDataSource and TableViewDelegate
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
-    }
+	override func numberOfSections(in tableView: UITableView) -> Int {
+		return fetchedResultsController?.sections?.count ?? 1
+	}
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0: // Online
-            return communicatorManager.conversations.count
-        case 1: // History
-            return 0
-        default:
-            return 0
-        }
+		guard let sections = fetchedResultsController?.sections else {
+			return 0
+		}
+
+		return sections[section].numberOfObjects
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ConversationListCell", for: indexPath) as! ConversationCell
-        switch indexPath.section {
-        case 0:
-            let conversation = communicatorManager.conversations[indexPath.item]
-            cell.userID = conversation.userId
-            cell.name = conversation.username
-            cell.message = conversation.chatMessages.last?.text
-            cell.date = conversation.chatMessages.last?.timestamp
-            cell.online = true
-            cell.hasUnreadMessage = conversation.chatMessages.last?.isUnread ?? false
-        case 1:
-            fatalError("not implemented")
-        default:
-            fatalError()
-        }
+
+		let conversation = fetchedResultsController.object(at: indexPath)
+		guard let opponent = conversation.opponent else { return cell }
+		cell.userID = opponent.userID ?? ""
+		cell.name = opponent.name ?? ""
+		cell.message = conversation.lastMessage?.text
+		cell.date = conversation.lastMessage?.timeStamp
+		cell.online = conversation.opponent?.isOnline ?? false
+		cell.hasUnreadMessage = conversation.lastMessage?.isUnread ?? false
 
         return cell
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch section {
-        case 0:
-            return "Online"
-        case 1:
-            return "History"
-        default:
-            return nil
-        }
+		return "Dialogues"
     }
 
-    private func considerThemeChanging(selectedTheme: UIColor) {
-        DispatchQueue.global(qos: .background).async {
-            UserDefaults.standard.setTheme(theme: selectedTheme, forKey: "Theme")
-        }
-        UINavigationBar.appearance().barTintColor = selectedTheme
-    }
+	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+
+		if editingStyle == .delete {
+			let conversation: Conversation = fetchedResultsController.object(at: indexPath)
+			CoreDataManager.shared.delete(conversation)
+			CoreDataManager.shared.save()
+
+		}
+
+	}
 
 }
 
-extension ConversationsListViewController: CommunicatorManagerConversationsListDelegate {
+extension ConversationsListViewController: CommunicatorManagerDelegate {
+	func didUpdateData() {
+		tableView.reloadData()
+	}
+
     func didCatchError(error: Error) {
         let errorAlert = UIAlertController(
             title: "Oops.. An error",
@@ -147,12 +169,5 @@ extension ConversationsListViewController: CommunicatorManagerConversationsListD
                 style: .cancel))
 
         self.present(errorAlert, animated: true)
-    }
-
-    func didReloadConversationsList() {
-        communicatorManager.sortMessages()
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
     }
 }

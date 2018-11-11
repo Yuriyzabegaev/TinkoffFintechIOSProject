@@ -53,6 +53,7 @@ class CoreDataStack {
             return nil
         }
 
+		context.name = "master"
         context.persistentStoreCoordinator = coordinator
         context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
         context.undoManager = nil
@@ -66,6 +67,7 @@ class CoreDataStack {
             return nil
         }
 
+		context.name = "main"
         context.persistentStoreCoordinator = nil
         context.parent = parentContext
         context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
@@ -80,24 +82,16 @@ class CoreDataStack {
             return nil
         }
 
+		context.name = "save"
         context.parent = parentContext
         context.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
         context.undoManager = nil
         return context
     }()
 
-    init() {
-        // initializing lazy variables
-        _ = managedObjectModel
-        _ = persistentStoreCoordiantor
-        _ = masterContext
-        _ = mainContext
-        _ = saveContext
-    }
-
     func performSave(context: NSManagedObjectContext, completionHandler: ((Bool) -> Void)? = nil) {
         if context.hasChanges {
-            context.perform { [weak self] in
+			context.performAndWait { [weak self] in
                 do {
                     try context.save()
                 } catch {

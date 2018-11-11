@@ -1,12 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="18A391" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Profile" representedClassName="Profile" syncable="YES" codeGenerationType="class">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="18B75" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Conversation" representedClassName="Conversation" syncable="YES" codeGenerationType="class">
+        <relationship name="lastMessage" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Message" inverseName="lastMessageInConversation" inverseEntity="Message" syncable="YES"/>
+        <relationship name="messages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Message" inverseName="conversation" inverseEntity="Message" syncable="YES"/>
+        <relationship name="opponent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="conversation" inverseEntity="User" syncable="YES"/>
+    </entity>
+    <entity name="Message" representedClassName="Message" syncable="YES" codeGenerationType="class">
+        <attribute name="isIncoming" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="isUnread" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="timeStamp" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="conversation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Conversation" inverseName="messages" inverseEntity="Conversation" syncable="YES"/>
+        <relationship name="lastMessageInConversation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Conversation" inverseName="lastMessage" inverseEntity="Conversation" syncable="YES"/>
+    </entity>
+    <entity name="User" representedClassName="User" syncable="YES" codeGenerationType="class">
         <attribute name="bio" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="isOnline" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userID" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="conversation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Conversation" inverseName="opponent" inverseEntity="Conversation" syncable="YES"/>
     </entity>
-    <fetchRequest name="GetAllProfiles" entity="Profile"/>
+    <fetchRequest name="FetchConversationsOnline" entity="Conversation" predicateString="opponent.isOnline == 1"/>
+    <fetchRequest name="FetchConversationsWithID" entity="Conversation" predicateString="opponent.userID == $OPPONENT_ID"/>
+    <fetchRequest name="FetchMessagesFromConversationWithID" entity="Message" predicateString="conversation.opponent.userID == $OPPONENT_ID"/>
+    <fetchRequest name="FetchUnEmptyOnlineConversations" entity="Conversation" predicateString="messages.@count &gt; 0 AND opponent.isOnline == 1"/>
+    <fetchRequest name="FetchUsersOnline" entity="User" predicateString="isOnline == 1"/>
+    <fetchRequest name="FetchUsersWithID" entity="User" predicateString="userID = $userID"/>
+    <fetchRequest name="GetAllProfiles" entity="User" predicateString="isOnline == 0"/>
     <elements>
-        <element name="Profile" positionX="-9" positionY="36" width="128" height="90"/>
+        <element name="Conversation" positionX="2000.24609375" positionY="-11690.99609375" width="128" height="90"/>
+        <element name="Message" positionX="1926" positionY="-11655" width="128" height="135"/>
+        <element name="User" positionX="1899" positionY="-11619" width="128" height="135"/>
     </elements>
 </model>
