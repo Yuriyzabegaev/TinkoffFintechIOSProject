@@ -13,15 +13,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+	private let rootAssembly = RootAssembly()
+	private var coreDataManager: CoreDataManagerProtocol!
+
     func application(_ application: UIApplication,
 					 didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+		coreDataManager = rootAssembly.serviceAssembly.coreDataManager
+		window = UIWindow(frame: UIScreen.main.bounds)
 
-        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.lightGray]
+		window?.rootViewController = rootAssembly.presentationAssembly.rootViewController()
+		window?.makeKeyAndVisible()
 
-        if let theme = UserDefaults.standard.getTheme(forKey: "Theme") {
-            UINavigationBar.appearance().barTintColor = theme
-        }
-
+		restoreTheme()
         return true
     }
 
@@ -44,7 +47,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
-        CoreDataManager.shared.save()
+        coreDataManager.save()
     }
+
+	private func restoreTheme() {
+		UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.lightGray]
+
+		if let theme = UserDefaults.standard.getTheme(forKey: "Theme") {
+			UINavigationBar.appearance().barTintColor = theme
+		}
+	}
 
 }

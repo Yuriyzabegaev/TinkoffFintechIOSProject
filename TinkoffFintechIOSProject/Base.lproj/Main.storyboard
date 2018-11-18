@@ -68,7 +68,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ConversationListCell" rowHeight="92" id="4tC-IC-zlT" customClass="ConversationCell" customModule="TinkoffFintechIOSProject" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ConversationListCell" rowHeight="92" id="4tC-IC-zlT" customClass="ConversationCellView" customModule="TinkoffFintechIOSProject" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="92"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4tC-IC-zlT" id="0t2-Om-L86">
@@ -163,7 +163,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="565"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="OutgoingMessageCell" rowHeight="70" id="ike-0D-WBi" customClass="MessageCell" customModule="TinkoffFintechIOSProject" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="OutgoingMessageCell" rowHeight="70" id="ike-0D-WBi" customClass="MessageCell" customModule="TinkoffFintechIOSProject" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ike-0D-WBi" id="cYu-ia-IJX">
@@ -211,7 +211,7 @@
                                             <outlet property="timeLabel" destination="4wi-da-9T2" id="c4a-Ii-2Qx"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="IncomingMessageCell" rowHeight="70" id="nCS-uA-Ua3" userLabel="IncomingMessageCell" customClass="MessageCell" customModule="TinkoffFintechIOSProject" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="IncomingMessageCell" rowHeight="70" id="nCS-uA-Ua3" userLabel="IncomingMessageCell" customClass="MessageCell" customModule="TinkoffFintechIOSProject" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="98" width="375" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nCS-uA-Ua3" id="3DP-cJ-fDG">
@@ -470,10 +470,10 @@
             </objects>
             <point key="canvasLocation" x="-455" y="-191"/>
         </scene>
-        <!--Themes Swift View Controller-->
+        <!--Themes View Controller-->
         <scene sceneID="0mM-K9-uxH">
             <objects>
-                <viewController storyboardIdentifier="Swift-ThemesViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="zdy-ks-XMx" customClass="ThemesSwiftViewController" customModule="TinkoffFintechIOSProject" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Swift-ThemesViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="zdy-ks-XMx" customClass="ThemesViewController" customModule="TinkoffFintechIOSProject" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eIf-0q-9Ej">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
