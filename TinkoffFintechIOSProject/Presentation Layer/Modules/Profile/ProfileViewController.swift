@@ -101,6 +101,13 @@ class ProfileViewController: KeyboardInputViewController {
                     }
         })
 
+		chooseAlert.addAction(
+			UIAlertAction(title: "Download",
+						  style: .default) { [weak self] _ in
+							guard let segueID = self?.photoChooserSegueID else { return }
+							self?.performSegue(withIdentifier: segueID, sender: nil)
+		})
+
         chooseAlert.addAction(
             UIAlertAction(
                 title: "Cancel",
@@ -113,10 +120,13 @@ class ProfileViewController: KeyboardInputViewController {
 	// MARK: - Dependencies
 
 	private var profileModel: ProfileModelProtocol!
+	private var assembly: PresentationAssemblyProtocol!
 
-	func setUpDependencies(model: ProfileModelProtocol) {
+	func setUpDependencies(model: ProfileModelProtocol, assembly: PresentationAssemblyProtocol) {
 		profileModel = model
 		profileModel.delegate = self
+
+		self.assembly = assembly
 	}
 
     // MARK: - LifeCycle
@@ -155,6 +165,24 @@ class ProfileViewController: KeyboardInputViewController {
             handleTextFieldsNewData()
         }
     }
+
+	// MARK: - Navigation
+
+	let photoChooserSegueID = "To Photo Chooser"
+
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		super.prepare(for: segue, sender: sender)
+
+		switch segue.identifier {
+		case photoChooserSegueID:
+			guard let navigation = segue.destination as? UINavigationController,
+				let photoChooserViewController = navigation.viewControllers.first as? PictureChooserViewController else { return }
+			assembly.setUp(photoChooserViewController: photoChooserViewController)
+			photoChooserViewController.delegate = self
+		default:
+			return
+		}
+	}
 
     // MARK: - Selector Methods
 
@@ -327,7 +355,6 @@ extension ProfileViewController: UITextFieldDelegate {
 
             isSaveButtonEnabled = true
         }
-
         self.view.endEditing(true)
     }
 
@@ -335,11 +362,20 @@ extension ProfileViewController: UITextFieldDelegate {
 
 extension ProfileViewController: ProfileModelDelegate {
 	func didChangeData(_ model: ProfileModelProtocol) {
-		            nameTextField.text = profileModel.profileData.name
-		            bioTextField.text = profileModel.profileData.bio
-		            nameLabel.text = profileModel.profileData.name
-		            bioLabel.text = profileModel.profileData.bio
-		            profilePhotoImageView.image = profileModel.profileData.image ?? UIImage(named: "placeholder-user")
-	}
+		nameTextField.text = profileModel.profileData.name
+		bioTextField.text = profileModel.profileData.bio
+		nameLabel.text = profileModel.profileData.name
+		bioLabel.text = profileModel.profileData.bio
+		profilePhotoImageView.image = profileModel.profileData.image ?? UIImage(named: "placeholder-user")
 
+		isSaveButtonEnabled = true
+	}
+}
+
+extension ProfileViewController: PictureChooserDelegate {
+	func didChoosePicture(_ pictureChooser: PictureChooserViewController, picture: UIImage) {
+		profileModel.profileData = ProfileData(name: profileModel.profileData.name,
+											   bio: profileModel.profileData.bio,
+											   image: picture)
+	}
 }

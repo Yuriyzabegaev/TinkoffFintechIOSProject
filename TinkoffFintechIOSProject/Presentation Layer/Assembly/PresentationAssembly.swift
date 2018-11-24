@@ -41,7 +41,7 @@ class PresentationAssembly: PresentationAssemblyProtocol {
 	func setUp(profileViewController: ProfileViewController) {
 		let profileDataManager = serviceAssembly.profileDataManager
 
-		profileViewController.setUpDependencies(model: ProfileModel(profileDataManager: profileDataManager))
+		profileViewController.setUpDependencies(model: ProfileModel(profileDataManager: profileDataManager), assembly: self)
 	}
 
 	func setUp(conversationViewController: ConversationViewController) {
@@ -53,6 +53,11 @@ class PresentationAssembly: PresentationAssemblyProtocol {
 			.setUpDependencies(conversationModel: ConversationModel(coreDataManager: coreDataManager,
 																	frcManager: frcManager,
 																	communicatorManager: communicationManager))
+	}
+
+	func setUp(photoChooserViewController: PictureChooserViewController) {
+		photoChooserViewController.setUpDependencies(assembly: self,
+													 model: PictureChooserModel(dataSource: serviceAssembly.pictureDataSource))
 	}
 
 }

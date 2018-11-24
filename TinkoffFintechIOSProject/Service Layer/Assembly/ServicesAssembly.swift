@@ -40,4 +40,9 @@ class ServicesAssembly: ServicesAssemblyProtocol {
 										 myUserID: coreAssembly.myUserID)
 	}
 
+	var pictureDataSource: PicturesDataSourceProtocol {
+		return PicturesPixabayNetworkService(requestManager: coreAssembly.networkRequestManager,
+											 numberOfPictures: 150)
+	}
+
 }

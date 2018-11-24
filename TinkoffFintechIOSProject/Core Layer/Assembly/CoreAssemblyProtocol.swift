@@ -13,4 +13,5 @@ protocol CoreAssemblyProtocol {
 	var coreDataStack: CoreDataStackProtocol { get }
 	var communicator: CommunicatorProtocol { get }
 	var profileDataHandler: ProfileDataHandlerProtocol { get }
+	var networkRequestManager: RequestManagerProtocol { get }
 }

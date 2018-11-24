@@ -25,4 +25,8 @@ class CoreAssembly: CoreAssemblyProtocol {
 		return ProfileDataHandler()
 	}
 
+	var networkRequestManager: RequestManagerProtocol {
+		return RequestManager()
+	}
+
 }

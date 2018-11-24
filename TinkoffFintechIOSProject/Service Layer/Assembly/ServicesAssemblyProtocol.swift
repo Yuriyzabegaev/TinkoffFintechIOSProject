@@ -14,4 +14,5 @@ protocol ServicesAssemblyProtocol {
 	var communicationManager: CommunicatorManagerProtocol { get }
 	var displayNameGetter: DisplayNameGetterProtocol { get }
 	var coreDataManager: CoreDataManagerProtocol { get }
+	var pictureDataSource: PicturesDataSourceProtocol { get }
 }
