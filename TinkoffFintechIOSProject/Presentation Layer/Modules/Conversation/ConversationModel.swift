@@ -65,6 +65,7 @@ class ConversationModel: ConversationModelProtocol {
 
 		self.fetchedResultsController = coreDataManager.setupFRC(fetchRequest, frcManager: frcManager)
 		frcManager.delegate = frcManagerDelegate
+		communicatorManager.delegate = self
 
 		self.opponentID = opponentID
 
@@ -103,4 +104,14 @@ class ConversationModel: ConversationModelProtocol {
 		delegate?.didUpdateData(self)
 	}
 
+}
+
+extension ConversationModel: CommunicatorManagerDelegate {
+	func didUpdateData() {
+		delegate?.didUpdateData(self)
+	}
+
+	func didCatchError(error: Error) {
+		delegate?.didCatchError(self, error: error)
+	}
 }

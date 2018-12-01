@@ -13,4 +13,5 @@ protocol PresentationAssemblyProtocol {
 	func setUp(profileViewController: ProfileViewController)
 	func setUp(conversationViewController: ConversationViewController)
 	func setUp(photoChooserViewController: PictureChooserViewController)
+	func setUp(themesViewController: ThemesViewController)
 }

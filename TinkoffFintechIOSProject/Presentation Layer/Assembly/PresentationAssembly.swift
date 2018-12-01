@@ -60,4 +60,8 @@ class PresentationAssembly: PresentationAssemblyProtocol {
 													 model: PictureChooserModel(dataSource: serviceAssembly.pictureDataSource))
 	}
 
+	func setUp(themesViewController: ThemesViewController) {
+		themesViewController.setUpDependencies(model: Themes())
+	}
+
 }

@@ -14,13 +14,19 @@ protocol ConversationCellConfiguration: class {
     var name: String? {get set}
     var message: String? {get set}
     var date: Date? {get set}
-    var online: Bool {get set}
     var hasUnreadMessage: Bool {get set}
+	var online: Bool {get}
+	func setOnline(animated: Bool)
+	func setOffline(animated: Bool)
 }
 
 class ConversationCellView: UITableViewCell, ConversationCellConfiguration {
 
+	static let onlineCellColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
+	static let offlineCellColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+
     // MARK: - properties
+
     var userID: String = ""
 
     var name: String? {
@@ -59,15 +65,8 @@ class ConversationCellView: UITableViewCell, ConversationCellConfiguration {
             }
         }
     }
-    var online: Bool = false {
-        didSet {
-            if online {
-                self.backgroundColor = #colorLiteral(red: 1, green: 0.9243035078, blue: 0.6523137865, alpha: 1)
-            } else {
-                self.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-            }
-        }
-    }
+    private(set) var online: Bool = false
+
     var hasUnreadMessage: Bool = false {
         didSet {
             if hasUnreadMessage && message != nil {
@@ -94,5 +93,52 @@ class ConversationCellView: UITableViewCell, ConversationCellConfiguration {
 
         lastMessageLabel!.textColor = UIColor.darkGray
     }
+
+	// MARK: - Animations
+
+	func setOnline(animated: Bool) {
+		online = true
+		performAnimations(animated: animated)
+	}
+
+	func setOffline(animated: Bool) {
+		online = false
+		performAnimations(animated: animated)
+	}
+
+	private func performAnimations(animated: Bool) {
+		let backgroundAnimation: () -> Void = {
+			self.backgroundColor = self.online ? #colorLiteral(red: 1, green: 0.9243035078, blue: 0.6523137865, alpha: 1) : #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+		}
+		let textColorAnimation: () -> Void = {
+			self.lastMessageLabel.textColor = self.online ? ConversationCellView.onlineCellColor : ConversationCellView.offlineCellColor
+		}
+
+		if animated {
+			UIView.transition(with: nameLabel,
+							  duration: 0.5,
+							  options: .transitionCrossDissolve,
+							  animations: {
+								self.nameLabel.transform = self.nameLabel.transform.scaledBy(x: 1.1, y: 1.1)
+			}, completion: { _ in
+				UIView.transition(with: self.nameLabel,
+								  duration: 0.5,
+								  options: .transitionCrossDissolve,
+								  animations: {
+									self.nameLabel.transform = CGAffineTransform.identity
+				})
+			})
+
+			UIView.transition(with: lastMessageLabel,
+							  duration: 1,
+							  options: [UIView.AnimationOptions.curveEaseIn,
+										UIView.AnimationOptions.transitionCrossDissolve],
+							  animations: textColorAnimation)
+			UIView.animate(withDuration: 1, animations: backgroundAnimation)
+		} else {
+			backgroundAnimation()
+			textColorAnimation()
+		}
+	}
 
 }

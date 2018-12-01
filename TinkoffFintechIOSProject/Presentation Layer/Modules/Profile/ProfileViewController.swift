@@ -125,7 +125,6 @@ class ProfileViewController: KeyboardInputViewController {
 	func setUpDependencies(model: ProfileModelProtocol, assembly: PresentationAssemblyProtocol) {
 		profileModel = model
 		profileModel.delegate = self
-
 		self.assembly = assembly
 	}
 

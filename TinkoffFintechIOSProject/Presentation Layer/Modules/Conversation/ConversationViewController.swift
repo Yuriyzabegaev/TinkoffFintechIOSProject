@@ -16,17 +16,17 @@ class ConversationViewController: KeyboardInputViewController {
         case incoming = "IncomingMessageCell"
     }
 
+	private var hasError: Bool = false
+	private var lastTextInInputTextView: String = ""
+
     // MARK: - Properties
 
     // configured in configureData(with:)
-    var opponentID: String!
-    var opponentDisplayName: String?
-	var opponentIsOnline: Bool!
+    private var opponentID: String!
+    private var opponentDisplayName: String?
+	private var opponentIsOnline: Bool!
 
 	// MARK: - Dependencies
-//	private var frcManager: FRCManagerProtocol!
-//	private var communicatorManager: CommunicatorManager!
-//	private var fetchedResultsController: NSFetchedResultsController<Message>!
 	private var conversationModel: ConversationModelProtocol!
 
 	func setUpDependencies(conversationModel: ConversationModelProtocol) {
@@ -61,10 +61,12 @@ class ConversationViewController: KeyboardInputViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 		conversationModel.setUpProperties(opponentID: opponentID, frcManagerDelegate: tableView)
+		conversationModel.delegate = self
+		inputTextView.delegate = self
+
 		setUpUI()
-		if !opponentIsOnline {
-			disableSendButton()
-		}
+
+		disableSendButton(animated: false)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -77,9 +79,18 @@ class ConversationViewController: KeyboardInputViewController {
 		conversationModel.delegate = nil
     }
 
-	private func disableSendButton() {
+	private func disableSendButton(animated: Bool) {
 		sendButton.isEnabled = false
-		sendButton.alpha = 0.4
+		if animated {
+			animateDisableSendButton()
+		}
+	}
+
+	private func enableSendButton(animated: Bool) {
+		sendButton.isEnabled = true
+		if animated {
+			animateEnableSendButton()
+		}
 	}
 
 	private func setUpUI() {
@@ -95,6 +106,42 @@ class ConversationViewController: KeyboardInputViewController {
 		inputTextView.textContainer.lineBreakMode = NSLineBreakMode.byTruncatingTail
 		inputTextView.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
 		inputTextView.layer.borderWidth = 0.5
+	}
+
+	// MARK: - Animations
+
+	private func animateSetButtonScale() {
+		UIView.transition(with: sendButton,
+								 duration: 0.25,
+								 options: .curveEaseIn,
+								 animations: {
+									self.sendButton.transform = CGAffineTransform.init(scaleX: 1.15,
+																					   y: 1.15)
+		}, completion: { _ in
+			UIView.transition(with: self.sendButton,
+							  duration: 0.25,
+							  options: .curveEaseIn,
+							  animations: {
+								self.sendButton.transform = CGAffineTransform.init(scaleX: 0.85,
+																				   y: 0.85)
+			})
+		})
+	}
+
+	private func animateDisableSendButton() {
+		UIView.animate(withDuration: 0.5,
+					   animations: {
+						self.sendButton.alpha = 0.4
+		})
+		animateSetButtonScale()
+	}
+
+	private func animateEnableSendButton() {
+		UIView.animate(withDuration: 0.5,
+					   animations: {
+						self.sendButton.alpha = 1
+		})
+		animateSetButtonScale()
 	}
 
 }
@@ -141,8 +188,8 @@ extension ConversationViewController: UITableViewDelegate {
 
 }
 
-extension ConversationViewController: CommunicatorManagerDelegate {
-    func didCatchError(error: Error) {
+extension ConversationViewController: ConversationModelDelegate {
+	func didCatchError(_ model: ConversationModelProtocol, error: Error) {
         let errorAlert = UIAlertController(
             title: "Oops.. An error",
             message: nil,
@@ -153,7 +200,8 @@ extension ConversationViewController: CommunicatorManagerDelegate {
                 title: NSLocalizedString("Cancel", comment: ""),
                 style: .cancel,
                 handler: { _ in
-                    self.disableSendButton()
+					self.hasError = true
+                    self.disableSendButton(animated: true)
             }))
 
         self.present(errorAlert, animated: true)
@@ -167,8 +215,31 @@ extension ConversationViewController: CommunicatorManagerDelegate {
         }
     }
 
-	func didUpdateData() {
+	func didUpdateData(_ conversationModel: ConversationModelProtocol) {
 		tableView.reloadData()
 	}
 
+}
+
+extension ConversationViewController: UITextViewDelegate {
+	func textViewDidChange(_ textView: UITextView) {
+
+		var firstLetterIsAddedOrRemoved = false
+		if lastTextInInputTextView.count == 0 && textView.hasText || lastTextInInputTextView.count != 0 && !textView.hasText {
+			firstLetterIsAddedOrRemoved = true
+		}
+		lastTextInInputTextView = textView.text
+		if !firstLetterIsAddedOrRemoved {
+			return
+		}
+
+		if !opponentIsOnline || hasError {
+			return
+		}
+		if textView.hasText {
+			enableSendButton(animated: true)
+		} else {
+			disableSendButton(animated: true)
+		}
+	}
 }

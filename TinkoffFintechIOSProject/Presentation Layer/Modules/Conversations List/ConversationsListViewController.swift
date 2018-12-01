@@ -19,6 +19,8 @@ class ConversationsListViewController: UITableViewController {
         static let toThemes = "toThemes"
     }
 
+	private var knownConversationsIDsWithOnlineStates: [String: Bool] = [:]
+
     // MARK: - Dependencies
 	private var conversatiosListModel: ConversationsListModelProtocol!
 	private var presentationAssembly: PresentationAssemblyProtocol!
@@ -30,7 +32,6 @@ class ConversationsListViewController: UITableViewController {
 					myDisplayName: String) {
 		// called from assembly
 		self.presentationAssembly = presentationAssembly
-
 		conversatiosListModel = conversationsListModel
 		conversatiosListModel.displayName = myDisplayName
 		conversatiosListModel.frcManagerDelegate = tableView
@@ -51,7 +52,6 @@ class ConversationsListViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         conversatiosListModel.delegate = self
-
         tableView.reloadData()
     }
 
@@ -86,6 +86,8 @@ class ConversationsListViewController: UITableViewController {
 
 				guard let themesViewController = navigationController.viewControllers
 					.first as? ThemesViewController else { return }
+
+				presentationAssembly.setUp(themesViewController: themesViewController)
 
 				themesViewController.themePickerHandler = { [weak self] newTheme in
 					self?.updateTheme(to: newTheme)
@@ -124,8 +126,31 @@ class ConversationsListViewController: UITableViewController {
 		cell.name = opponent.name ?? ""
 		cell.message = conversation.lastMessage?.text
 		cell.date = conversation.lastMessage?.timeStamp
-		cell.online = conversation.opponent?.isOnline ?? false
 		cell.hasUnreadMessage = conversation.lastMessage?.isUnread ?? false
+
+		let isOnline = conversation.opponent?.isOnline ?? false
+
+		if let сonversationIndex = opponent.userID {
+
+			if let wasOnline = knownConversationsIDsWithOnlineStates[сonversationIndex] {
+
+				if wasOnline && !isOnline {
+					cell.setOffline(animated: true)
+				} else if !wasOnline && isOnline {
+					cell.setOnline(animated: true)
+				}
+
+			} else {
+
+				if isOnline {
+					cell.setOnline(animated: false)
+				} else {
+					cell.setOffline(animated: false)
+				}
+
+			}
+			knownConversationsIDsWithOnlineStates.updateValue(isOnline, forKey: сonversationIndex)
+		}
 
         return cell
     }

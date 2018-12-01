@@ -14,20 +14,27 @@ class ThemesViewController: UIViewController {
 
     var themePickerHandler: ((UIColor) -> Void)?
 
-    let model = Themes()
+	// MARK: - Dependencies
+
+	private var model: Themes!
+
+	func setUpDependencies(model: Themes) {
+		self.model = model
+	}
 
     // MARK: - Actions
 
     @IBAction func themePicked(_ sender: UIButton) {
         let newTheme = model.getTheme(sender.tag) ?? UIColor.white
         changeThemeTo(newTheme: newTheme)
-
     }
+
     @IBAction func dismissScreen(_ sender: UIButton) {
         dismiss(animated: true)
     }
 
     // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
