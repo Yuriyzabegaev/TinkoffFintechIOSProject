@@ -23,8 +23,12 @@ class ConversationViewController: KeyboardInputViewController {
 
     // configured in configureData(with:)
     private var opponentID: String!
-    private var opponentDisplayName: String?
-	private var opponentIsOnline: Bool!
+    private var opponentNameString: String?
+	private var opponentIsOnline: Bool! {
+		didSet {
+			highlightOpponentName(opponentIsOnline, animated: true)
+		}
+	}
 
 	// MARK: - Dependencies
 	private var conversationModel: ConversationModelProtocol!
@@ -51,9 +55,7 @@ class ConversationViewController: KeyboardInputViewController {
     func configureData(with cell: ConversationCellConfiguration) {
 		opponentIsOnline = cell.online
         opponentID = cell.userID
-        opponentDisplayName = cell.name ?? "Unknown person"
-
-        navigationItem.title = opponentDisplayName
+        opponentNameString = cell.name ?? "Unknown person"
     }
 
     // MARK: - Lifecycle
@@ -72,6 +74,7 @@ class ConversationViewController: KeyboardInputViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         tableView.reloadData()
+		highlightOpponentName(opponentIsOnline, animated: true)
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -106,6 +109,14 @@ class ConversationViewController: KeyboardInputViewController {
 		inputTextView.textContainer.lineBreakMode = NSLineBreakMode.byTruncatingTail
 		inputTextView.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
 		inputTextView.layer.borderWidth = 0.5
+
+		let titleLabel = UILabel()
+		titleLabel.text = opponentNameString
+		titleLabel.frame = CGRect.zero
+		titleLabel.textAlignment = .center
+		titleLabel.sizeToFit()
+		titleLabel.autoresizingMask = .flexibleTopMargin
+		navigationItem.titleView = titleLabel
 	}
 
 	// MARK: - Animations
@@ -142,6 +153,65 @@ class ConversationViewController: KeyboardInputViewController {
 						self.sendButton.alpha = 1
 		})
 		animateSetButtonScale()
+	}
+
+	static let onlineNameLabelColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
+	static let offlineNameLabelColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+
+	private func highlightOpponentName(_ highlight: Bool, animated: Bool) {
+		guard let titleLabel = navigationItem.titleView as? UILabel else { return }
+
+		let textColorAnimation: () -> Void = {
+			titleLabel.textColor = highlight ? ConversationViewController.onlineNameLabelColor : ConversationViewController.offlineNameLabelColor
+		}
+
+		if animated {
+			let oldFrame = titleLabel.frame
+			UIView.animate(withDuration: 0.5,
+						   animations: {
+							titleLabel.frame = CGRect(origin: oldFrame.origin,
+													  size: CGSize(width: oldFrame.width * 2,
+																   height: oldFrame.height * 2))
+
+			}, completion: { _ in
+							UIView.animate(withDuration: 0.5,
+										   animations: {
+											titleLabel.frame = oldFrame
+							})
+			})
+//			let scaleTextAnimation = CABasicAnimation(keyPath: "frame")
+//			scaleTextAnimation.beginTime = CACurrentMediaTime()
+//			scaleTextAnimation.fromValue = oldFrame
+//			scaleTextAnimation.toValue = CGRect(origin: oldFrame.origin,
+//												size: CGSize(width: oldFrame.width * 2,
+//															 height: oldFrame.height * 2))
+//			scaleTextAnimation.duration = 0.5
+//			scaleTextAnimation.fillMode = .removed
+//			scaleTextAnimation.isRemovedOnCompletion = true
+//			navigationItem.titleView?.layer.add(scaleTextAnimation, forKey: nil)
+//			let scaleAnimation: () -> Void = {
+//				titleLabel.transform = titleLabel.transform.scaledBy(x: 1.1, y: 1.1)
+//			}
+//			let scaleCompletion: () -> Void = {
+//				titleLabel.transform = CGAffineTransform.identity
+//			}
+//			UIView.transition(with: titleLabel,
+//							  duration: 0.5,
+//							  options: .transitionCrossDissolve,
+//							  animations: scaleAnimation,
+//							  completion: { _ in
+//								UIView.transition(with: titleLabel,
+//												  duration: 0.5,
+//												  options: .transitionCrossDissolve,
+//												  animations: scaleCompletion)
+//			})
+			UIView.transition(with: titleLabel,
+							  duration: 1,
+							  options: .transitionCrossDissolve,
+							  animations: textColorAnimation)
+		} else {
+			textColorAnimation()
+		}
 	}
 
 }
